@@ -4,7 +4,7 @@
 
 @section('contenido')
 <div class="min-h-screen flex  justify-center px-4 container py-5 mb-10">
-    <div class=" text-justify max-w-3xl text-center px-4 ">
+    <div class="text-left max-w-3xl px-4">
         <h2 class=" text-center text-blue-700 text-2xl font-bold mb-6">TÉRMINOS Y CONDICIONES DE USO DE TICKETGO</h2>
         <br>
         <p>Los presentes Términos y Condiciones regulan el acceso y 

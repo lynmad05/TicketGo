@@ -12,7 +12,7 @@
     
     <style>
         body {
-            font-family: 'Open Sans', sans-serif;
+            font-family: 'Nunito', sans-serif;
         }
 
         .btn-yellow {
@@ -24,6 +24,9 @@
             text-decoration: none;
             display: inline-block;
             cursor: pointer;
+        }
+        .btn-yellow:hover {
+            background-color: #eab308; /* Tailwind amber-500 */
         }
     </style>
 </head>
@@ -66,10 +69,10 @@
                 <div class="flex items-center space-x-3 bg-gray-300 rounded px-4 py-2 w-max">
                     <input class="w-5 h-5" id="robot" name="robot" type="checkbox" required />
                     <label class="text-xs font-bold select-none" for="robot">No soy un robot</label>
-                    <img src="{{ asset('imagenes/recapcha.png') }}" class="h-6 w-auto object-contain rounded shadow" />
+                    <img src="{{ asset('images/recapcha.png') }}" class="h-6 w-auto object-contain rounded shadow" />
                 </div>
 
-                <button type="submit" class="btn-yellow w-full text-center">Ingresa</button>
+                <button type="submit" class="btn-yellow w-full text-center">Iniciar Sesión</button>
             </form>
         </section>
 
