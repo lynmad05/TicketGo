@@ -21,4 +21,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
+Route::view('/terminos-condiciones', 'terminos')->name('terminos');
+
+
 require __DIR__.'/auth.php';
