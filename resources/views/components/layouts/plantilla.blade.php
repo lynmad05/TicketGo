@@ -18,8 +18,8 @@
         </div>
 
         <nav class="flex-1 flex justify-center space-x-20 text-sm md:text-base font-medium text-black">
-            <a href="/explorar" class="hover:text-blue-600">Explorar eventos</a>
-            <a href="/sobre-nosotros" class="hover:text-blue-600">Sobre nosotros</a>
+            <a href="{{route('welcome')}}" class="hover:text-blue-600">Explorar eventos</a>
+            <a href="{{route('sobre_nosotros')}}" class="hover:text-blue-600">Sobre nosotros</a>
             <a href="{{route('login')}}" class="hover:text-blue-600">Iniciar sesión</a>
             <a href="{{route('register')}}" class="hover:text-blue-600">Registrarme</a>
         </nav>

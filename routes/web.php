@@ -22,6 +22,12 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::view('/terminos-condiciones', 'terminos')->name('terminos');
+// Página principal
+Route::view('/', 'welcome')->name('welcome');
+
+// Página de "Sobre Nosotros"
+Route::view('/nosotros', 'nosotros')->name('nosotros');
+
 
 
 require __DIR__.'/auth.php';
