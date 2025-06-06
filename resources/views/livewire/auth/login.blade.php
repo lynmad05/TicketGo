@@ -1,5 +1,4 @@
-<div>
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
@@ -9,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    
+
     <style>
         body {
             font-family: 'Nunito', sans-serif;
@@ -25,8 +24,9 @@
             display: inline-block;
             cursor: pointer;
         }
+
         .btn-yellow:hover {
-            background-color: #eab308; /* Tailwind amber-500 */
+            background-color: #eab308;
         }
     </style>
 </head>
@@ -50,37 +50,48 @@
                 </div>
             @endif
 
-            <form action="{{ route('login') }}" method="POST" class="flex flex-col space-y-6" id="loginForm">
+            {{-- FORMULARIO LIVEWIRE --}}
+            <form wire:submit.prevent="login" class="flex flex-col space-y-6">
                 @csrf
+
+                <!-- Email -->
                 <div class="flex flex-col space-y-1">
-                    <label class="text-gray-600 text-sm font-normal" for="email">Email</label>
+                    <label class="text-gray-600 text-sm font-normal" for="email">Correo electrónico</label>
                     <input
                         class="border border-yellow-500 rounded px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-yellow-500"
-                        id="email" name="email" type="email" placeholder="Ej: jose@gmail.com" required autofocus />
+                        id="email" type="email" placeholder="Ej: jose@gmail.com" required
+                        wire:model="email" />
+                    @error('email') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                 </div>
 
+                <!-- Contraseña -->
                 <div class="flex flex-col space-y-1">
                     <label class="text-gray-600 text-sm font-normal" for="password">Contraseña</label>
                     <input
                         class="border border-yellow-500 rounded px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-yellow-500"
-                        id="password" name="password" type="password" placeholder="Contraseña" required />
+                        id="password" type="password" placeholder="Contraseña" required
+                        wire:model="password" />
+                    @error('password') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                 </div>
 
+                <!-- No soy un robot -->
                 <div class="flex items-center space-x-3 bg-gray-300 rounded px-4 py-2 w-max">
-                    <input class="w-5 h-5" id="robot" name="robot" type="checkbox" required />
+                    <input class="w-5 h-5" id="robot" type="checkbox" wire:model="robot" required />
                     <label class="text-xs font-bold select-none" for="robot">No soy un robot</label>
                     <img src="{{ asset('images/recapcha.png') }}" class="h-6 w-auto object-contain rounded shadow" />
+                    @error('robot') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
                 </div>
 
+                <!-- Botón -->
                 <button type="submit" class="btn-yellow w-full text-center">Iniciar Sesión</button>
             </form>
         </section>
 
         <section class="flex-1 max-w-lg">
-            <img class="rounded-lg w-full h-auto object-cover" src="https://tienda.morrisonmusic.pe/wp-content/uploads/2025/01/0x1900-000000-80-0-0.jpg" alt="Imagen decorativa" />
+            <img class="rounded-lg w-full h-auto object-cover"
+                 src="https://tienda.morrisonmusic.pe/wp-content/uploads/2025/01/0x1900-000000-80-0-0.jpg"
+                 alt="Imagen decorativa" />
         </section>
     </main>
 </body>
 </html>
-
-</div>

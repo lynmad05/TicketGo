@@ -27,7 +27,7 @@ Route::view('/', 'welcome')->name('welcome');
 
 // Página de "Sobre Nosotros"
 Route::view('/nosotros', 'nosotros')->name('nosotros');
-
+Route::view('/principallog', 'usuario.principallog')->name('pagina.principallog');
 
 
 require __DIR__.'/auth.php';
