@@ -2,32 +2,7 @@
 @section('añaelegir')
 
 
-<main class="flex flex-1 max-w-7xl mx-auto w-full">
-    <section class="flex-1 bg-white px-6 py-6 max-w-4xl">
-        <nav class="flex items-center space-x-6 mb-8">
-            <div class="flex items-center space-x-2 text-gray-300 text-xs uppercase font-semibold">
-                <button class="text-black text-xl mr-1">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
-                <span class="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center">
-                    <span class="block w-2.5 h-2.5 rounded-full bg-gray-300"></span>
-                </span>
-                <span>TICKETS</span>
-            </div>
-            <button class="flex items-center space-x-2 text-xs uppercase font-semibold text-black relative">
-                <span class="w-5 h-5 rounded-full border-2 border-black flex items-center justify-center bg-black">
-                    <span class="block w-2.5 h-2.5 rounded-full bg-white"></span>
-                </span>
-                <span>DATOS DE COMPRA</span>
-                <span  class="absolute bottom-0 left-0 right-0 h-[2px] bg-black -mb-6"></span>
-            </button>
-            <button class="flex items-center space-x-2 text-gray-300 text-xs uppercase font-semibold" disabled>
-                <span class="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center">
-                    <span class="block w-2.5 h-2.5 rounded-full bg-gray-300"></span>
-                </span>
-                <span>CONFIRMACIÓN</span>
-            </button>
-        </nav>
+
 
         <div class="mb-4">
             <div class="inline-block bg-[#0a2a6e] text-white text-[10px] font-bold uppercase px-3 py-1">

@@ -19,7 +19,7 @@
             </div>
 
             <nav class="flex-1 flex justify-center space-x-20 text-sm md:text-base font-medium text-black">
-                <a href="{{route('welcome')}}" class="hover:text-blue-600">Explorar eventos</a>
+                <a href="{{ route('pagina.principallog') }}" class="hover:text-blue-600">Explorar eventos</a>
                 <a href="{{route('nosotros')}}" class="hover:text-blue-600">Sobre nosotros</a>    
             </nav>
         </div>

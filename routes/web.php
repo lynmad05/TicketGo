@@ -49,4 +49,7 @@ Route::get('/identificadorduki', function () {
     return view('usuario.identificadorduki');
 })->name('usuario.identificadorduki');  
 
+Route::get('/vaucherduki', function () {
+    return view('usuario.vaucherduki');
+})->name('usuario.vaucherduki');  
 require __DIR__.'/auth.php';
