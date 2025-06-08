@@ -1,0 +1,108 @@
+@extends('layouts.tickets')
+@section('añaticket')
+
+<main class="flex flex-1 max-w-7xl mx-auto w-full">
+    <section class="flex-1 bg-white px-6 py-6 max-w-4xl">
+        <nav class="flex items-center space-x-6 mb-8">
+            <div class="flex items-center space-x-2 text-gray-300 text-xs uppercase font-semibold">
+                <button class="text-black text-xl mr-1">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <button class="flex items-center space-x-2 text-xs uppercase font-semibold text-black relative">
+                    <span class="w-5 h-5 rounded-full border-2 border-black flex items-center justify-center bg-black">
+                        <span class="block w-2.5 h-2.5 rounded-full bg-white"></span>
+                    </span>
+                    <span>DATOS DE COMPRA</span>
+                    <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-black -mb-6"></span>
+                </button>
+                <button class="flex items-center space-x-2 text-gray-300 text-xs uppercase font-semibold" disabled>
+                    <span class="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center">
+                        <span class="block w-2.5 h-2.5 rounded-full bg-gray-300"></span>
+                    </span>
+                    <span>DATOS DE COMPRA</span>
+                </button>
+                <button class="flex items-center space-x-2 text-gray-300 text-xs uppercase font-semibold" disabled>
+                    <span class="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center">
+                        <span class="block w-2.5 h-2.5 rounded-full bg-gray-300"></span>
+                    </span>
+                    <span>CONFIRMACIÓN</span>
+                </button>
+        </nav>
+
+
+        <div class="px-4 py-2 bg-[#0a2f7a]">
+            <p class="text-xs font-bold text-white uppercase">SELECCIONA TU UBICACIÓN EN EL MAPA</p>
+        </div>
+
+        <div class="px-4 py-4 flex flex-col items-center space-y-6">
+            <img class="w-[280px] max-w-full" height="80" src="{{ asset('images/mapa.png') }}" width="280" />
+
+
+        </div>
+
+        <div class="px-4 py-6 grid grid-cols-3 gap-x-4 gap-y-6 max-w-[280px] mx-auto">
+            <div class="text-xs font-bold uppercase text-gray-700">TICKET</div>
+            <div class="text-xs font-bold uppercase text-gray-700">PRECIO</div>
+            <div class="text-xs font-bold uppercase text-gray-700 text-center">SELECCIONA CANTIDAD</div>
+
+            <div class="flex items-center space-x-2 text-xs text-gray-700">
+                <div class="w-3 h-3 rounded-full bg-gray-400"></div>
+                <span>CANCHA VIP</span>
+            </div>
+            <div class="text-xs text-gray-700">S/ 345.00</div>
+            <div class="flex items-center justify-center space-x-2">
+                <button class="decrease border border-gray-300 rounded px-2 py-0.5 text-xs font-bold">-</button>
+                <input class="ticket-input w-10 text-center border border-gray-300 rounded text-xs" min="0" readonly type="number" value="0" />
+                <button class="increase border border-gray-300 rounded px-2 py-0.5 text-xs font-bold">+</button>
+            </div>
+
+            <div class="flex items-center space-x-2 text-xs text-gray-700">
+                <div class="w-3 h-3 rounded-full bg-[#7a0000]"></div>
+                <span>CANCHA PREFERENCIAL</span>
+            </div>
+            <div class="text-xs text-gray-700">S/ 288.00</div>
+            <div class="flex items-center justify-center space-x-2">
+                <button class="decrease border border-gray-300 rounded px-2 py-0.5 text-xs font-bold">-</button>
+                <input class="ticket-input w-10 text-center border border-gray-300 rounded text-xs" min="0" readonly type="number" value="0" />
+                <button class="increase border border-gray-300 rounded px-2 py-0.5 text-xs font-bold">+</button>
+            </div>
+
+            <div class="flex items-center space-x-2 text-xs text-gray-700">
+                <div class="w-3 h-3 rounded-full bg-[#7a0000]"></div>
+                <span>CANCHA GENERAL</span>
+            </div>
+            <div class="text-xs text-gray-700">S/ 173.00</div>
+            <div class="flex items-center justify-center space-x-2">
+                <button class="decrease border border-gray-300 rounded px-2 py-0.5 text-xs font-bold">-</button>
+                <input class="ticket-input w-10 text-center border border-gray-300 rounded text-xs" min="0" readonly type="number" value="0" />
+                <button class="increase border border-gray-300 rounded px-2 py-0.5 text-xs font-bold">+</button>
+            </div>
+        </div>
+
+        <div class="px-4 pb-6 max-w-[280px] mx-auto">
+            <button id="add-tickets" class="w-full bg-gray-100 border border-gray-300 rounded text-xs text-gray-700 py-1.5" type="button">Agregar</button>
+        </div>
+
+        <div id="summary" class="px-4 pb-6 max-w-[280px] mx-auto hidden">
+            <h2 class="text-lg font-bold">Resumen de Tickets</h2>
+            <div id="summary-content" class="text-xs text-gray-700"></div>
+        </div>
+    </section>
+
+    <aside class="flex-1 p-4 md:p-8 border-1 border-gray-200 max-w-md">
+        <img class="w-full object-cover max-h-[300px]" src="{{ asset('images/dukiderecho.jpg') }}" alt="Duki Tour" />
+        <div class="p-6 flex flex-col space-y-4">
+            <p class="text-xs font-semibold text-gray-700">MÚSICA <span class="text-blue-700">/ PRESENCIAL</span></p>
+            <h1 class="text-base font-extrabold text-black leading-tight">DUKI - AMERI WORLD TOUR 2025</h1>
+            <p class="text-xs text-gray-500">sábado, 23 de agosto 21:00 hrs.</p>
+            <p class="text-xs text-gray-700 leading-relaxed">
+                Luego de batir todos los records con AMERI, que se convirtió en el álbum argentino más escuchado en 24hs, DUKI se prepara para dar la gira más grande de su carrera: WORLD TOUR. El artista hará una parada obligatoria en Perú el próximo 23 de agosto del 2025 para apoderarse y encender el escenario de Multiespacio Costa 21. Las entradas estarán disponibles desde este viernes 8 de noviembre a las 10:00 am por la plataforma de Teleticket.
+            </p>
+            <a href="{{ route('elegirduki') }}" class="w-full bg-[#f9d6a3] text-white text-xs font-bold py-3 rounded text-center block" style="color:#fff;">
+                CONTINUAR
+            </a>
+        </div>
+    </aside>
+</main>
+
+@endsection
