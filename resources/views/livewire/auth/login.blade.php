@@ -35,7 +35,7 @@
         <section class="flex flex-col max-w-md w-full">
             <div class="flex space-x-6 mb-6 text-sm font-semibold">
                 <button class="text-blue-800">Usuario</button>
-                <button class="text-black">Administrador</button>
+                <a href="{{ route('admin.login') }}" class="text-black hover:text-blue-800">Administrador</a>
             </div>
 
             @if (session('status'))
