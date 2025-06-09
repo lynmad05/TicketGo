@@ -1,52 +1,97 @@
-<div class="flex flex-col gap-6">
-    <x-auth-header :title="__('Log in to your account')" :description="__('Enter your email and password below to log in')" />
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TicketGO Login</title>
 
-    <!-- Session Status -->
-    <x-auth-session-status class="text-center" :status="session('status')" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
 
-    <form wire:submit="login" class="flex flex-col gap-6">
-        <!-- Email Address -->
-        <flux:input
-            wire:model="email"
-            :label="__('Email address')"
-            type="email"
-            required
-            autofocus
-            autocomplete="email"
-            placeholder="email@example.com"
-        />
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
 
-        <!-- Password -->
-        <div class="relative">
-            <flux:input
-                wire:model="password"
-                :label="__('Password')"
-                type="password"
-                required
-                autocomplete="current-password"
-                :placeholder="__('Password')"
-                viewable
-            />
+        .btn-yellow {
+            background-color: yellow;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+        }
 
-            @if (Route::has('password.request'))
-                <flux:link class="absolute end-0 top-0 text-sm" :href="route('password.request')" wire:navigate>
-                    {{ __('Forgot your password?') }}
-                </flux:link>
+        .btn-yellow:hover {
+            background-color: #eab308;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+    <main class="flex flex-1 flex-col md:flex-row px-8 md:px-16 py-6 gap-8 md:gap-16 max-w-7xl mx-auto w-full">
+        <section class="flex flex-col max-w-md w-full">
+            <div class="flex space-x-6 mb-6 text-sm font-semibold">
+                <button class="text-blue-800">Usuario</button>
+                <a href="{{ route('admin.login') }}" class="text-black hover:text-blue-800">Administrador</a>
+            </div>
+
+            @if (session('status'))
+                <div class="text-green-600 text-sm mb-4">{{ session('status') }}</div>
             @endif
-        </div>
 
-        <!-- Remember Me -->
-        <flux:checkbox wire:model="remember" :label="__('Remember me')" />
+            @if ($errors->any())
+                <div class="text-red-600 text-sm mb-4">
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
 
-        <div class="flex items-center justify-end">
-            <flux:button variant="primary" type="submit" class="w-full">{{ __('Log in') }}</flux:button>
-        </div>
-    </form>
+            {{-- FORMULARIO LIVEWIRE --}}
+            <form wire:submit.prevent="login" class="flex flex-col space-y-6">
+                @csrf
 
-    @if (Route::has('register'))
-        <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
-            {{ __('Don\'t have an account?') }}
-            <flux:link :href="route('register')" wire:navigate>{{ __('Sign up') }}</flux:link>
-        </div>
-    @endif
-</div>
+                <!-- Email -->
+                <div class="flex flex-col space-y-1">
+                    <label class="text-gray-600 text-sm font-normal" for="email">Correo electrónico</label>
+                    <input
+                        class="border border-yellow-500 rounded px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-yellow-500"
+                        id="email" type="email" placeholder="Ej: jose@gmail.com" required
+                        wire:model="email" />
+                    @error('email') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+                </div>
+
+                <!-- Contraseña -->
+                <div class="flex flex-col space-y-1">
+                    <label class="text-gray-600 text-sm font-normal" for="password">Contraseña</label>
+                    <input
+                        class="border border-yellow-500 rounded px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-yellow-500"
+                        id="password" type="password" placeholder="Contraseña" required
+                        wire:model="password" />
+                    @error('password') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+                </div>
+
+                <!-- No soy un robot -->
+                <div class="flex items-center space-x-3 bg-gray-300 rounded px-4 py-2 w-max">
+                    <input class="w-5 h-5" id="robot" type="checkbox" wire:model="robot" required />
+                    <label class="text-xs font-bold select-none" for="robot">No soy un robot</label>
+                    <img src="{{ asset('images/recapcha.png') }}" class="h-6 w-auto object-contain rounded shadow" />
+                    @error('robot') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+                </div>
+
+                <!-- Botón -->
+                <button type="submit" class="btn-yellow w-full text-center">Iniciar Sesión</button>
+            </form>
+        </section>
+
+        <section class="flex-1 max-w-lg">
+            <img class="rounded-lg w-full h-auto object-cover"
+                 src="https://tienda.morrisonmusic.pe/wp-content/uploads/2025/01/0x1900-000000-80-0-0.jpg"
+                 alt="Imagen decorativa" />
+        </section>
+    </main>
+</body>
+</html>

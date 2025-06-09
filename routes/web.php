@@ -4,6 +4,10 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\PromocionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,4 +25,37 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
+Route::view('/terminos-condiciones', 'terminos')->name('terminos');
+// Página principal
+Route::view('/', 'welcome')->name('welcome');
+
+// Página de "Sobre Nosotros"
+Route::view('/nosotros', 'nosotros')->name('nosotros');
+Route::view('/principallog', 'usuario.principallog')->name('pagina.principallog');
+
+
+
+// Rutas para administrador de eventos :)
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login.post');
+
+    Route::middleware(['auth', 'adminonly'])->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+        // CRUD de proveedores
+        Route::resource('proveedores', ProveedorController::class)->names('admin.proveedores');
+
+        // CRUD de eventos
+        Route::resource('eventos', EventoController::class)->names('admin.eventos');
+
+        //CRUD de promociones :)
+        Route::resource('promociones', PromocionController::class)->names('admin.promociones');
+    });
+
+    Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+});
+
+
 require __DIR__.'/auth.php';
+    

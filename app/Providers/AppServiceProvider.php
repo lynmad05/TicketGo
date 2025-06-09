@@ -3,20 +3,19 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Actions\Auth\LoginResponse;
+use App\Actions\Auth\RegisteredUserResponse;
+use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
+use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
-        //
+        $this->app->singleton(LoginResponseContract::class, LoginResponse::class);
+        $this->app->singleton(RegisteredUserResponseContract::class, RegisteredUserResponse::class);
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         //
