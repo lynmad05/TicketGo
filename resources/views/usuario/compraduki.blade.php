@@ -20,7 +20,7 @@
         <div class="w-3 h-3 rounded-full bg-gray-400"></div>
         <span>CANCHA VIP</span>
     </div>
-    <div class="text-xs text-gray-700">S/ 345.00</div>
+    <div class="text-xs text-gray-700">  S/ 345.00</div>
     <div class="flex items-center justify-center space-x-2">
         <button class="decrease border border-gray-300 rounded px-2 py-0.5 text-xs font-bold">-</button>
         <input class="ticket-input w-10 text-center border border-gray-300 rounded text-xs" min="0" readonly type="number" value="0" />
