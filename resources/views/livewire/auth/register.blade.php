@@ -11,8 +11,6 @@
         <form wire:submit.prevent="register" class="flex flex-col space-y-4" novalidate>
             @csrf
 
-            <!-- Aquí van todos los inputs que ya vimos, con wire:model.defer, igual que antes -->
-
             <!-- Nombres -->
             <div>
                 <label class="text-sm font-semibold text-gray-600" for="nombres">Nombres</label>
