@@ -62,39 +62,37 @@
         @yield('contenido')
     </main>
     
-    
+
 <footer class="bg-black text-white py-4 min-h-[100px]">
-    <div class="container px-6 flex flex-col md:flex-row items-start gap-80 ">
-        
-        <!-- Logo -->
-        <div class="mb-6 md:mb-0">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo TicketGO" class="w-80">
-        </div>
+        <div class="container px-6 flex flex-col md:flex-row items-start gap-80 ">
+            
+            <!-- Logo -->
+            <div class="mb-6 md:mb-0">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo TicketGO" class="w-80">
+            </div>
 
-        <!-- Conozcámonos -->
-        <div class="mb-6 md:mb-0 pt-14" style="margin-left: -10px;">
-            <h4 class="text-lg font-bold mb-3">CONOZCÁMONOS</h4>
-            <ul class="space-y-1 text-sm">
-                <li><a href="#" class="hover:underline">Acerca de nosotros</a></li>
-                <li><a href="{{ route('terminos') }}" class="hover:underline">Términos y condiciones</a></li>
-                <li><a href="#" class="hover:underline">Política de cookies</a></li>
-                <li><a href="#" class="hover:underline">Política de privacidad</a></li>
-                <li><a href="#" class="hover:underline">Derechos Arco</a></li>
-                <li><a href="#" class="hover:underline">Revisa tu boleta</a></li>
-            </ul>
-        </div>
+            <!-- Conozcámonos -->
+            <div class="mb-6 md:mb-0 pt-14" style="margin-left: -10px;">
+                <h4 class="text-lg font-bold mb-3">CONOZCÁMONOS</h4>
+                <ul class="space-y-1 text-sm">
+                    <li><a href="{{route('nosotros')}}" class="hover:underline">Acerca de nosotros</a></li>
+                    <li><a href="{{ route('terminos') }}" class="hover:underline">Términos y condiciones</a></li>
+                    <li><a href="{{ route('cookies') }}" class="hover:underline">Política de cookies</a></li>
+                    <li><a href="{{route('privacidad')}}" class="hover:underline">Política de privacidad</a></li>
+                </ul>
+            </div>
 
-        <!-- Trabajemos juntos -->
-        <div class="mb-6 md:mb-0 pt-14">
-            <h4 class="text-lg font-bold mb-3">¡TRABAJEMOS JUNTOS!</h4>
-            <ul class="space-y-1 text-sm">
-                <li><a href="#" class="hover:underline">¿Tienes un evento?</a></li>
-                <li><a href="#" class="hover:underline">Venta empresas</a></li>
-                <li><a href="#" class="hover:underline">Módulo promotores</a></li>
-            </ul>
+            <!-- Necesitas ayuda -->
+            <div class="mb-6 md:mb-0 pt-14">
+                <h4 class="text-lg font-bold mb-3">¿Necesitas ayuda?</h4>
+                <ul class="space-y-1 text-sm">
+                    <li><a href="{{route('comprar')}}" class="hover:underline">Cómo comprar entradas</a></li>
+                    <li><a href="{{route('funciona')}}" class="hover:underline">Cómo funcionan los e-tickets</a></li>
+                    <li><a href="{{route('derechos')}}" class="hover:underline">Derechos Arco</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-</footer>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
     <script>
         const comprasBtn = document.getElementById('comprasBtn');
