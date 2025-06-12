@@ -52,4 +52,12 @@ Route::get('/identificadorduki', function () {
 Route::get('/vaucherduki', function () {
     return view('usuario.vaucherduki');
 })->name('usuario.vaucherduki');  
+
+Route::get('/etickets', function () {
+    return view('usuario.etickets');
+})->name('usuario.etickets');  
+
+Route::get('/compras', function () {
+    return view('usuario.compras');
+})->name('usuario.compras');  
 require __DIR__.'/auth.php';
