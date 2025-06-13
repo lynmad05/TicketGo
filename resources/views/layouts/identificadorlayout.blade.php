@@ -19,7 +19,7 @@
     </style>
 </head>
 
-<header class="bg-gradient-to-r from-[#0a4ccf] via-[#0a4ccf] to-[#d1b300] shadow-md h-20 flex items-center px-6">
+<header class="h-20 flex items-center justify-between px-6 shadow bg-cover bg-center" style="background-image: url('{{ asset('images/degradado.jpg') }}');">
     <div class="container mx-auto h-full flex justify-between items-center">
         <div>
             <a href="/">
@@ -29,8 +29,8 @@
     </div>
 </header>
 
-<main class="flex flex-col md:flex-row max-w-7xl mx-auto mt-4 px-4 md:px-8 gap-6">
-    <section class="flex-1 bg-white px-6 py-6 max-w-4xl">
+<main class="flex flex-col md:flex-row max-w-full mx-auto mt-4 px-4 md:px-8 gap-6">
+    <section class="flex-1 bg-white px-6 py-6 w-full max-w-full">
         <nav class="flex items-center space-x-6 mb-8">
             <div class="flex items-center space-x-2 text-gray-300 text-xs uppercase font-semibold">
                 <button onclick="history.back()" class="text-black text-xl mr-1">
@@ -61,33 +61,35 @@
 </main>
 
 <footer class="bg-black text-white py-4 min-h-[100px]">
-    <div class="container px-6 flex flex-col md:flex-row items-start gap-80 ">
-        <div class="mb-6 md:mb-0">
-            <img src="{{ asset('images/usuario/logo.png') }}" class="w-80">
-        </div>
+        <div class="container px-6 flex flex-col md:flex-row items-start gap-80 ">
+            
+            <!-- Logo -->
+            <div class="mb-6 md:mb-0">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo TicketGO" class="w-80">
+            </div>
 
-        <div class="mb-6 md:mb-0 pt-14" style="margin-left: -10px;">
-            <h4 class="text-lg font-bold mb-3">CONOZCÁMONOS</h4>
-            <ul class="space-y-1 text-sm">
-                <li><a href="#" class="hover:underline">Acerca de nosotros</a></li>
-                <li><a href="{{ route('terminos') }}" class="hover:underline">Términos y condiciones</a></li>
-                <li><a href="#" class="hover:underline">Política de cookies</a></li>
-                <li><a href="#" class="hover:underline">Política de privacidad</a></li>
-                <li><a href="#" class="hover:underline">Derechos Arco</a></li>
-                <li><a href="#" class="hover:underline">Revisa tu boleta</a></li>
-            </ul>
+            <!-- Conozcámonos -->
+            <div class="mb-6 md:mb-0 pt-14" style="margin-left: -10px;">
+                <h4 class="text-lg font-bold mb-3">CONOZCÁMONOS</h4>
+                <ul class="space-y-1 text-sm">
+                    <li><a href="{{route('nosotros')}}" class="hover:underline">Acerca de nosotros</a></li>
+                    <li><a href="{{ route('terminos') }}" class="hover:underline">Términos y condiciones</a></li>
+                    <li><a href="{{ route('cookies') }}" class="hover:underline">Política de cookies</a></li>
+                    <li><a href="{{route('privacidad')}}" class="hover:underline">Política de privacidad</a></li>
+                    <li><a href="{{route('derechos')}}" class="hover:underline">Derechos Arco</a></li>
+                </ul>
+            </div>
+            <!-- Necesitas ayuda -->
+            <div class="mb-6 md:mb-0 pt-14">
+                <h4 class="text-lg font-bold mb-3">¿Necesitas ayuda?</h4>
+                <ul class="space-y-1 text-sm">
+                    <li><a href="{{route('comprar')}}" class="hover:underline">Cómo comprar entradas</a></li>
+                    <li><a href="{{route('funciona')}}" class="hover:underline">Cómo funcionan los e-tickets</a></li>
+                    <li><a href="{{route('derechos')}}" class="hover:underline">Derechos Arco</a></li>
+                </ul>
+            </div>
         </div>
-
-        <div class="mb-6 md:mb-0 pt-14">
-            <h4 class="text-lg font-bold mb-3">¡TRABAJEMOS JUNTOS!</h4>
-            <ul class="space-y-1 text-sm">
-                <li><a href="#" class="hover:underline">¿Tienes un evento?</a></li>
-                <li><a href="#" class="hover:underline">Venta empresas</a></li>
-                <li><a href="#" class="hover:underline">Módulo promotores</a></li>
-            </ul>
-        </div>
-    </div>
-</footer>
+    </footer>
 
 <div id="successModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center hidden z-50">
     <div class="bg-white p-6 rounded shadow-lg text-center">

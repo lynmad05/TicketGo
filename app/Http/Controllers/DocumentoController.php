@@ -9,7 +9,7 @@ class DocumentoController extends Controller
     /**
      * Simula la subida del documento (no guarda realmente).
      */
-    public function simularSubida(Request $request)
+    public function simular(Request $request)
     {
         $request->validate([
             'documento' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',

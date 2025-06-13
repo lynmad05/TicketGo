@@ -92,5 +92,5 @@ class CompraDetalleController extends Controller
         session()->forget(['tickets', 'total']);
 
         return redirect()->route('welcome')->with('success', 'Compra y método de entrega registrados.');
-    }
+    } 
 }

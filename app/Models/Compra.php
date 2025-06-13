@@ -9,7 +9,8 @@ class Compra extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['usuario_id', 'fecha', 'total', 'estado'];
+    protected $fillable = ['usuario_id', 'fecha', 'total', 'estado', 'formato_entrega'];
+
     public $timestamps = false;
 
     protected $casts = [
@@ -20,5 +21,10 @@ class Compra extends Model
     public function detalles()
     {
         return $this->hasMany(CompraDetalle::class, 'compra_id');
+    }
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'usuario_id');
     }
 }

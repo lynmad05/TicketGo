@@ -20,7 +20,7 @@
 
 <body class="bg-white">
 
-    <header class="bg-gradient-to-r from-[#0a4ccf] via-[#0a4ccf] to-[#d1b300] shadow-md h-20 flex items-center px-6">
+    <header class="h-20 flex items-center justify-between px-6 shadow bg-cover bg-center" style="background-image: url('{{ asset('images/degradado.jpg') }}');">
         <div class="container mx-auto h-full flex justify-between items-center">
             <div>
                 <a href="/">

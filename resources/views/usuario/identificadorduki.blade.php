@@ -5,38 +5,39 @@
 
     <!-- LADO IZQUIERDO -->
     <main class="flex-1 md:max-w-[60%]">
-        <table class="w-full text-[10px] text-gray-900 mb-6 border-collapse">
+        <table class="w-full text-sm text-gray-900 mb-6 border-collapse">
             <thead>
                 <tr>
-                    <th class="text-left font-normal pb-2">RESUMEN</th>
-                    <th class="text-right font-normal pb-2">PRECIO</th>
-                    <th class="text-right font-normal pb-2">TOTAL</th>
+                    <th class="text-left font-medium pb-3 text-base">RESUMEN</th>
+                    <th class="text-right font-medium pb-3 text-base">PRECIO</th>
+                    <th class="text-right font-medium pb-3 text-base">TOTAL</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($resumen as $item)
                     <tr class="border-t border-gray-300">
-                        <td class="py-2">{{ $item['descripcion'] }}</td>
-                        <td class="py-2 text-right">S/ {{ number_format($item['precio'], 2) }}</td>
-                        <td class="py-2 text-right">S/ {{ number_format($item['total'], 2) }}</td>
+                        <td class="py-3">{{ $item['descripcion'] }}</td>
+                        <td class="py-3 text-right">S/ {{ number_format($item['precio'], 2) }}</td>
+                        <td class="py-3 text-right">S/ {{ number_format($item['total'], 2) }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
 
+
         <div class="text-right text-[12px] font-semibold text-gray-700 mb-6">
             S/. {{ number_format($totalFinal, 2) }}
         </div>
 
-        <div class="mb-4">
+        <div class="mt-16 mb-4">
             <div class="inline-block bg-[#0a2a6e] text-white text-[10px] font-bold uppercase px-3 py-1">
                 SELECCIONA PARA CONTINUAR
             </div>
         </div>
 
-        <form id="termsForm" class="border border-gray-300 p-3 mb-6 text-[10px] text-gray-900">
-            <label class="flex items-start space-x-2 mb-2">
-                <input class="mt-1" type="checkbox" />
+        <form id="termsForm" class="border border-gray-300 p-4 mb-6 text-xs text-gray-900 leading-relaxed">
+            <label class="flex items-start space-x-2 mb-4">
+                <input class="mt-1 w-4 h-4" type="checkbox" />
                 <span>
                     Declaro que he leído y acepto los
                     <a class="underline text-black font-semibold" href="#">Términos y Condiciones</a> y
@@ -44,7 +45,7 @@
                 </span>
             </label>
             <label class="flex items-start space-x-2">
-                <input class="mt-1" type="checkbox" />
+                <input class="mt-1 w-4 h-4" type="checkbox" />
                 <span>
                     He leído y acepto los
                     <a class="underline text-black font-semibold" href="#">Términos y Condiciones</a> de la tienda.
@@ -52,28 +53,31 @@
             </label>
         </form>
 
+
         <div class="flex items-center space-x-3 max-w-[320px]">
-            <label for="fileInput" class="flex items-center space-x-2 border border-gray-700 rounded px-3 py-1 text-[10px] font-semibold text-gray-900 cursor-pointer select-none">
-                <i class="fas fa-upload"></i>
+            <label for="fileInput" class="flex items-center space-x-2 border border-gray-700 rounded px-4 py-2 text-sm font-semibold text-gray-900 cursor-pointer select-none">
+                <i class="fas fa-upload text-base"></i>
                 <span>Subir documento de identidad</span>
             </label>
             <input accept=".png,.jpg,.jpeg" class="hidden" id="fileInput" type="file" />
-            <div id="checkIcon" class="hidden border border-gray-700 rounded p-1">
-                <i class="fas fa-check text-green-600 text-sm"></i>
+            <div id="checkIcon" class="hidden border border-gray-700 rounded p-2">
+                <i class="fas fa-check text-green-600 text-base"></i>
             </div>
         </div>
+
         <p id="uploadMessage" class="text-[8px] mt-1 hidden"></p>
     </main>
 
     <!-- LADO DERECHO -->
-    <aside class="flex-1 max-w-full md:max-w-[40%]">
-        <img src="{{ asset('images/dukiderecho.jpg') }}" class="w-full mb-4" width="300" height="200" />
-        <p class="text-[10px] font-semibold mb-1">
-            MÚSICA /
-            <a class="text-blue-600" href="#">PRESENCIAL</a>
+    <aside class="flex-1 p-4 md:pt-0 md:px-8 md:mt-[-10px] max-w-md">
+    <img class="w-full object-cover max-h-[300px]" src="{{ asset('images/usuario/dukiderecho.jpg') }}" alt="Duki Tour" />
+    <div class="p-6 flex flex-col space-y-4">
+        <p class="text-xs font-semibold text-gray-700">MÚSICA <span class="text-blue-700">/ PRESENCIAL</span></p>
+        <h1 class="text-base font-extrabold text-black leading-tight">DUKI - AMERI WORLD TOUR 2025</h1>
+        <p class="text-xs text-gray-500">sábado, 23 de agosto 21:00 hrs.</p>
+        <p class="text-xs text-gray-700 leading-relaxed">
+            Luego de batir todos los records con AMERI, que se convirtió en el álbum argentino más escuchado en 24hs, DUKI se prepara para dar la gira más grande de su carrera: WORLD TOUR. El artista hará una parada obligatoria en Perú el próximo 23 de agosto del 2025 para apoderarse y encender el escenario de Multiespacio Costa 21. Las entradas estarán disponibles desde este viernes 8 de noviembre a las 10:00 am por la plataforma de Teleticket.
         </p>
-        <h2 class="text-[12px] font-extrabold mb-1">DUKI - AMERI WORLD TOUR 2025</h2>
-        <p class="text-[8px] text-gray-700 mb-4">sábado, 23 de agosto 21:00 hrs.</p>
         <button id="continueBtn" class="bg-[#f7b24a] text-white text-[10px] font-semibold uppercase px-6 py-2 w-full max-w-[220px]" type="button">
             CONTINUAR
         </button>
