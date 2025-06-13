@@ -31,13 +31,15 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 
-    <footer class="bg-black border-t border-[#E6A400] py-4 flex justify-center max-w-full">
-        <div class="flex items-center space-x-1">
-            <span class="text-blue-500 font-bold text-2xl leading-none">Ticket</span>
-            <span class="text-yellow-400 font-bold text-2xl leading-none">GO</span>
-            <i class="fas fa-ticket-alt text-yellow-400 text-2xl"></i>
+    <footer class="bg-black border-t border-[#E6A400] py-1">
+        <div class="container mx-auto flex justify-center items-center">
+            <a href="/">
+                <img src="{{ asset('images/logo.png') }}" alt="TicketGO Logo" class="w-28">
+            </a>
         </div>
     </footer>
+
+
 </body>
 
 </html>

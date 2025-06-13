@@ -83,13 +83,6 @@
             <span class="text-base font-bold" id="totalFinal">S/. {{ number_format($total, 1) }}</span>
             <input type="hidden" name="total_final" id="inputTotalFinal" value="{{ $total }}">
         </div>
-
-        <!-- Botón continuar para móvil (visible solo en sm) -->
-        <div class="mt-4 block lg:hidden">
-            <button type="submit" class="w-full bg-[#f7b32b] text-white uppercase font-bold text-sm py-3 rounded shadow-md hover:shadow-lg transition-shadow">
-                CONTINUAR
-            </button>
-        </div>
     </form>
 
     <!-- ASIDE DERECHO -->

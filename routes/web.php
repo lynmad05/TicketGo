@@ -55,6 +55,14 @@ Route::get('/identificadorduki', function () {
     return view('usuario.identificadorduki');
 })->name('usuario.identificadorduki');
 
+Route::get('/etickets', function () {
+    return view('usuario.etickets');
+})->name('usuario.etickets');  
+
+Route::get('/compras', function () {
+    return view('usuario.compras');
+})->name('usuario.compras');  
+
 Route::get('/vaucherduki', function () {
     // Obtenemos la última compra con estado 'pendiente' o cualquier estado que necesites
     $compra = Compra::with('detalles', 'usuario')->latest('fecha')->first();

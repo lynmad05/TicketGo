@@ -40,8 +40,8 @@
             </button>
             <!-- En tu menú -->
             <ul class="absolute left-1/2 -translate-x-1/2 mt-1 w-40 bg-white border border-gray-300 rounded shadow-md hidden z-10" id="comprasMenu" role="menu">
-                <li><a class="block px-3 py-2 text-xs text-gray-700 hover:bg-gray-100" href="#" role="menuitem">MIS COMPRAS</a></li>
-                <li><a class="block px-3 py-2 text-xs text-gray-700 hover:bg-gray-100" href="#" role="menuitem">E-TICKETS</a></li>
+                <li><a class="block px-3 py-2 text-xs text-gray-700 hover:bg-gray-100" href="{{route('usuario.compras')}}" role="menuitem">MIS COMPRAS</a></li>
+                <li><a class="block px-3 py-2 text-xs text-gray-700 hover:bg-gray-100" href="{{route('usuario.etickets')}}" role="menuitem">E-TICKETS</a></li>
                 <li>
                     <a href="#" class="block px-3 py-2 text-xs text-gray-700 hover:bg-gray-100" 
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -63,7 +63,7 @@
     </main>
     
 
-<footer class="bg-black text-white py-4 min-h-[100px]">
+    <footer class="bg-black text-white py-4 min-h-[100px]">
         <div class="container px-6 flex flex-col md:flex-row items-start gap-80 ">
             
             <!-- Logo -->
