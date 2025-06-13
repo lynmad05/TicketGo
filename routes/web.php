@@ -7,15 +7,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProveedorController;
-use App\Http\Controllers\EventoController;
 use App\Http\Controllers\PromocionController;
-use App\Http\Controllers\CompraDetalleController;
-use App\Http\Controllers\CompraController;
-use App\Http\Controllers\DocumentoController;
+use App\Http\Controllers\EventoController;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -23,65 +17,61 @@ Route::view('dashboard', 'dashboard')
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
+
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
-Route::view('/terminos-condiciones', 'terminos')->name('terminos');
+// Página principal
 Route::view('/', 'welcome')->name('welcome');
+
+// Página de "Sobre Nosotros"
 Route::view('/nosotros', 'nosotros')->name('nosotros');
+
+//Ruta para términos y condiciones. 
+Route::view('/terminos-condiciones', 'terminos')->name('terminos');
+
+// ruta para politica de cookies
+Route::view('/politica-cookies', 'cookies')->name('cookies');
+
+//Ruta para politica de privacidad
+Route::view('/politica-privacidad', 'privacidad')->name('privacidad');
+
+//Ruta para derechos ARCO
+Route::view('/derechos-arco', 'derechos')->name('derechos');
+
+// Ruta para como comprar entradas
+Route::view('/como-comprar-entradas', 'comprar')->name('comprar');
+
+//Ruta para como funcionan los etickets
+Route::view('/como-funcionan-etickets', 'funciona')->name('funciona');
+
+//Página para cuando el usuario se logea por primera vez
 Route::view('/principallog', 'usuario.principallog')->name('pagina.principallog');
-// ...
-Route::post('/guardar-detalle', [CompraDetalleController::class, 'guardarDetalle'])->name('guardar.detalle');
-Route::get('/formato-entrega', [CompraDetalleController::class, 'mostrarVistaEntrega'])->name('elegirduki');
-Route::post('/guardar-formato', [CompraDetalleController::class, 'guardarFormatoEntrega'])->name('guardar.formatoEntrega');
-Route::get('/pago/confirmar', [CompraController::class, 'vistaPago'])->name('pago.confirmar');
-Route::post('/pago', [CompraController::class, 'pagar'])->name('compra.pagar');
-Route::get('/pagoduki', [CompraController::class, 'mostrarPagoFinal'])->name('pagoduki');
-Route::delete('/detalle/{id}/eliminar', [CompraController::class, 'eliminarDetalle'])->name('detalle.eliminar');
-Route::get('/identificador-duki/{compra_id}', [CompraController::class, 'mostrarIdentificador'])->name('usuario.identificadorduki');
-Route::post('/documento/simular', [DocumentoController::class, 'simular'])->name('documento.simular');
-Route::post('/confirmar-compra', [CompraController::class, 'confirmarCompra'])->name('voucher.generar');
-Route::get('/voucher/{id}', [CompraController::class, 'mostrarVoucher'])->name('voucher.mostrar');
-Route::get('/vaucher', [CompraController::class, 'vistaVaucher'])->name('vaucher');
 
 
-
-Route::get('/pago/exito', function () {
-    return view('pago.exito');
-})->name('pago.exito');
-
-Route::get('/duki', function () {
-    return view('usuario.duki');
-})->name('evento.duki');
-
-Route::get('/compraduki', function () {
-   return view('usuario.compraduki');
-})->name('usuario.compraduki');
-
-Route::get('/identificadorduki', function () {
-    return view('usuario.identificadorduki');
-})->name('usuario.identificadorduki');
-
-Route::get('/vaucherduki', function () {
-    return view('usuario.vaucherduki');
-})->name('usuario.vaucherduki');
-
-// ▪️ RUTAS DE ADMINISTRACIÓN (sin modificar las existentes)
+// Rutas para administrador de eventos :)
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login.post');
 
     Route::middleware(['auth', 'adminonly'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+        // CRUD de proveedores
         Route::resource('proveedores', ProveedorController::class)->names('admin.proveedores');
+
+        // CRUD de eventos
         Route::resource('eventos', EventoController::class)->names('admin.eventos');
+
+        //CRUD de promociones :)
         Route::resource('promociones', PromocionController::class)->names('admin.promociones');
     });
 
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 });
 
-// ▪️ RUTAS DE AUTENTICACIÓN DE LARAVEL
+
 require __DIR__.'/auth.php';
+    
