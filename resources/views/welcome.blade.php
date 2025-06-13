@@ -3,7 +3,6 @@
   <main class="container px-6 mx-auto">
 
     <br>
-    <h3 class=" text-center text-blue-700 text-2xl font-bold mb-6 ">EVENTOS POPULARES</h3>
     <div id="carouselExample" class="carousel slide mb-6" data-bs-ride="carousel" >
         <div class="carousel-inner h-[550px]">
             <div class="carousel-item active">
