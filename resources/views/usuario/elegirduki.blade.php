@@ -87,19 +87,19 @@
 
     <!-- ASIDE DERECHO -->
     <aside class="flex-1 p-4 md:p-8  max-w-md">
-    <img class="w-full object-cover max-h-[300px]" src="{{ asset('images/usuario/dukiderecho.jpg') }}" alt="Duki Tour" />
-    <div class="p-6 flex flex-col space-y-4">
-        <p class="text-xs font-semibold text-gray-700">MÚSICA <span class="text-blue-700">/ PRESENCIAL</span></p>
-        <h1 class="text-base font-extrabold text-black leading-tight">DUKI - AMERI WORLD TOUR 2025</h1>
-        <p class="text-xs text-gray-500">sábado, 23 de agosto 21:00 hrs.</p>
-        <p class="text-xs text-gray-700 leading-relaxed">
-            Luego de batir todos los records con AMERI, que se convirtió en el álbum argentino más escuchado en 24hs, DUKI se prepara para dar la gira más grande de su carrera: WORLD TOUR. El artista hará una parada obligatoria en Perú el próximo 23 de agosto del 2025 para apoderarse y encender el escenario de Multiespacio Costa 21. Las entradas estarán disponibles desde este viernes 8 de noviembre a las 10:00 am por la plataforma de Teleticket.
-        </p>
-        <a href="{{ route('pagoduki') }}" class="bg-[#f7b32b] text-white uppercase font-bold text-sm py-3 rounded shadow-md hover:shadow-lg transition-shadow text-center block">
-        CONTINUAR
-        </a>
-    </div>
-</aside>
+        <img class="w-full object-cover max-h-[300px]" src="{{ asset('images/usuario/dukiderecho.jpg') }}" alt="Duki Tour" />
+        <div class="p-6 flex flex-col space-y-4">
+            <p class="text-xs font-semibold text-gray-700">MÚSICA <span class="text-blue-700">/ PRESENCIAL</span></p>
+            <h1 class="text-base font-extrabold text-black leading-tight">DUKI - AMERI WORLD TOUR 2025</h1>
+            <p class="text-xs text-gray-500">sábado, 23 de agosto 21:00 hrs.</p>
+            <p class="text-xs text-gray-700 leading-relaxed">
+                Luego de batir todos los records con AMERI, que se convirtió en el álbum argentino más escuchado en 24hs, DUKI se prepara para dar la gira más grande de su carrera: WORLD TOUR. El artista hará una parada obligatoria en Perú el próximo 23 de agosto del 2025 para apoderarse y encender el escenario de Multiespacio Costa 21. Las entradas estarán disponibles desde este viernes 8 de noviembre a las 10:00 am por la plataforma de Teleticket.
+            </p>
+            <a href="{{ route('pagoduki') }}" class="bg-[#f7b32b] text-white uppercase font-bold text-sm py-3 rounded shadow-md hover:shadow-lg transition-shadow text-center block">
+            CONTINUAR
+            </a>
+        </div>
+    </aside>
 </div>
 
 @endsection
