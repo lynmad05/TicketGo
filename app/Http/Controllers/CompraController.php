@@ -50,7 +50,6 @@ class CompraController extends Controller
             }
         }
 
-
         // Limpia la sesión para evitar confusión
         session()->forget(['tickets', 'total']);
 
@@ -80,7 +79,6 @@ class CompraController extends Controller
         });
 
         $totalFinal = number_format($compra->total, 2);
-
 
         return view('pago.pagoduki', compact('compra', 'resumen', 'totalFinal'));
     }
@@ -115,7 +113,7 @@ class CompraController extends Controller
             return redirect()->route('inicio')->with('error', 'No se encontró una compra activa asociada a tu cuenta.');
         }
 
-        // Generar resumen para la vista identificadorduki
+        // ✅ Generar resumen para la vista identificadorduki
         $resumen = $compra->detalles->map(function ($detalle) {
             return [
                 'descripcion' => $detalle->cantidad . ' TICKET ' . strtoupper($detalle->tipo_ticket),
@@ -124,14 +122,10 @@ class CompraController extends Controller
             ];
         });
 
-        // Calcular total sumando los subtotales de los detalles
-        $totalFinal = $compra->detalles->sum(function ($detalle) {
-            return $detalle->cantidad * $detalle->precio_unitario;
-        });
+        $totalFinal = $compra->total;
 
         return view('usuario.identificadorduki', compact('resumen', 'totalFinal', 'compra'));
     }
-
 
     public function eliminarDetalle($detalleId)
     {
