@@ -14,7 +14,7 @@
         <div class="container mx-auto px-6 h-full flex justify-between items-center">
             <div>
                 <a href="/">
-                    <img src="{{ asset('images/logo.png') }}"  class="w-32" />
+                    <img src="{{ asset('images/usuario/logo.png') }}"  class="w-32" />
                 </a>
             </div>
 

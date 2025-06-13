@@ -23,7 +23,7 @@
     <div class="container mx-auto h-full flex justify-between items-center">
         <div>
             <a href="/">
-                <img src="{{ asset('images/logo.png') }}" class="w-32" />
+                <img src="{{ asset('images/usuario/logo.png') }}" class="w-32" />
             </a>
         </div>
     </div>
@@ -63,7 +63,7 @@
 <footer class="bg-black text-white py-4 min-h-[100px]">
     <div class="container px-6 flex flex-col md:flex-row items-start gap-80 ">
         <div class="mb-6 md:mb-0">
-            <img src="{{ asset('images/logo.png') }}" class="w-80">
+            <img src="{{ asset('images/usuario/logo.png') }}" class="w-80">
         </div>
 
         <div class="mb-6 md:mb-0 pt-14" style="margin-left: -10px;">

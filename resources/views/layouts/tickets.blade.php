@@ -24,7 +24,7 @@
         <div class="container mx-auto h-full flex justify-between items-center">
             <div>
                 <a href="/">
-                    <img src="{{ asset('images/logo.png') }}" class="w-32" />
+                    <img src="{{ asset('images/usuario/logo.png') }}" class="w-32" />
                 </a>
             </div>
         </div>
@@ -66,7 +66,7 @@
         <div class="container px-6 flex flex-col md:flex-row items-start gap-80 ">
 
             <div class="mb-6 md:mb-0">
-                <img src="{{ asset('images/logo.png') }}" class="w-80">
+                <img src="{{ asset('images/usuario/logo.png') }}" class="w-80">
             </div>
 
             <div class="mb-6 md:mb-0 pt-14" style="margin-left: -10px;">
@@ -92,68 +92,7 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <script>
-        document.querySelectorAll('.increase').forEach((btn) => {
-            btn.addEventListener('click', () => {
-                const input = btn.parentElement.querySelector('.ticket-input');
-                input.value = parseInt(input.value) + 1;
-            });
-        });
-
-        document.querySelectorAll('.decrease').forEach((btn) => {
-            btn.addEventListener('click', () => {
-                const input = btn.parentElement.querySelector('.ticket-input');
-                const currentValue = parseInt(input.value);
-                if (currentValue > 0) {
-                    input.value = currentValue - 1;
-                }
-            });
-        });
-
-        document.getElementById('add-tickets')?.addEventListener('click', () => {
-            const summaryContent = document.getElementById('summary-content');
-            if (!summaryContent) return;
-            summaryContent.innerHTML = '';
-            let totalTickets = 0;
-            let totalPrice = 0;
-
-            const ticketRows = [{
-                    name: 'CANCHA VIP',
-                    price: 345.00,
-                    input: document.querySelectorAll('.ticket-input')[0]
-                },
-                {
-                    name: 'CANCHA PREFERENCIAL',
-                    price: 288.00,
-                    input: document.querySelectorAll('.ticket-input')[1]
-                },
-                {
-                    name: 'CANCHA GENERAL',
-                    price: 173.00,
-                    input: document.querySelectorAll('.ticket-input')[2]
-                },
-            ];
-
-            ticketRows.forEach(row => {
-                const quantity = parseInt(row.input?.value || '0');
-                if (quantity > 0) {
-                    totalTickets += quantity;
-                    totalPrice += quantity * row.price;
-                    summaryContent.innerHTML += `<p>${row.name}: ${quantity} tickets - S/ ${row.price.toFixed(2)} cada uno</p>`;
-                }
-            });
-
-            if (totalTickets > 0) {
-                summaryContent.innerHTML += `<p class="font-bold">Total: ${totalTickets} tickets - S/ ${totalPrice.toFixed(2)}</p>`;
-                document.getElementById('summary')?.classList.remove('hidden');
-            } else {
-                summaryContent.innerHTML = '<p>No se ha seleccionado ningún ticket.</p>';
-                document.getElementById('summary')?.classList.remove('hidden');
-            }
-        });
-    </script>
-
+    
 </body>
 
 </html>

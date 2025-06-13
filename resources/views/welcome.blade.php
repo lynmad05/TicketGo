@@ -1,25 +1,25 @@
 @extends('layouts.plantilla')
 @section('contenido')
-<main class="container px-6 mx-auto">
+  <main class="container px-6 mx-auto">
 
     <br>
     <h3 class=" text-center text-blue-700 text-2xl font-bold mb-6 ">EVENTOS POPULARES</h3>
-    <div id="carouselExample" class="carousel slide mb-6" data-bs-ride="carousel">
+    <div id="carouselExample" class="carousel slide mb-6" data-bs-ride="carousel" >
         <div class="carousel-inner h-[550px]">
             <div class="carousel-item active">
-                <img src="{{ asset('images/trueno.jpg') }}" class="d-block w-100" />
+            <img src="{{ asset('images/trueno.jpg') }}" class="d-block w-100" alt="Evento Trueno" />
             </div>
             <div class="carousel-item">
-                <img src="{{ asset('images/duki.jpg') }}" class="d-block w-100" />
+            <img src="{{ asset('images/duki.jpg') }}" class="d-block w-100" alt="Evento Duki" />
             </div>
             <div class="carousel-item">
-                <img src="{{ asset('images/emilia.jpg') }}" class="d-block w-100 h-[600px] object-cover" />
+               <img src="{{ asset('images/emilia.jpg') }}" class="d-block w-100 h-[600px] object-cover" />
             </div>
             <div class="carousel-item">
-                <img src="{{ asset('images/dualipa.jpg') }}" class="d-block w-100" />
+            <img src="{{ asset('images/dualipa.jpg') }}" class="d-block w-100" alt="Dualipa" />
             </div>
             <div class="carousel-item">
-                <img src="{{ asset('images/badbunny.jpg') }}" class="d-block w-100" />
+            <img src="{{ asset('images/badbunny.jpg') }}" class="d-block w-100" alt="Evento Bad Bunny" />
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -30,6 +30,7 @@
             <span class="carousel-control-next-icon"></span>
             <span class="visually-hidden">Siguiente</span>
         </button>
+    </div>
     </div>
     <h3 class=" text-center text-blue-700 text-2xl font-bold mb-6 ">EVENTOS DESTACADOS</h3>
     <section class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
@@ -93,5 +94,5 @@
             </div>
         </article>
     </section>
-</main>
+  </main>
 @endsection
