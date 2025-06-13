@@ -129,7 +129,8 @@ class CompraController extends Controller
             return $detalle->cantidad * $detalle->precio_unitario;
         });
 
-        return view('usuario.identificadorduki', compact('resumen', 'totalFinal', 'compra'));
+        return view('usuario.pagoduki', compact('resumen', 'totalFinal', 'compra'));
+
     }
 
 
@@ -231,5 +232,30 @@ class CompraController extends Controller
 
         return view('usuario.vaucherduki', ['compra' => $compra]); // 👈 muy importante
     }
+
+    public function mostrarIdentificador($compra_id)
+    {
+        $compra = Compra::with('detalles')->findOrFail($compra_id);
+
+        // Asegurar que el usuario accede solo a su propia compra
+        if ($compra->usuario_id !== Auth::id()) {
+            abort(403, 'No tienes permiso para ver esta compra');
+        }
+
+        $resumen = $compra->detalles->map(function ($detalle) {
+            return [
+                'descripcion' => $detalle->cantidad . ' TICKET ' . strtoupper($detalle->tipo_ticket),
+                'precio' => $detalle->precio_unitario,
+                'total' => $detalle->cantidad * $detalle->precio_unitario,
+            ];
+        });
+
+        $totalFinal = $compra->detalles->sum(function ($detalle) {
+            return $detalle->cantidad * $detalle->precio_unitario;
+        });
+
+        return view('usuario.identificadorduki', compact('compra', 'resumen', 'totalFinal'));
+    }
+
 
 }
