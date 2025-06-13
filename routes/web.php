@@ -8,10 +8,9 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\PromocionController;
+use App\Http\Controllers\EventoController;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [App\Http\Controllers\EventoController::class, 'index'])->name('welcome');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -67,6 +66,10 @@ Route::prefix('admin')->group(function () {
 
         // CRUD de eventos
         Route::resource('eventos', EventoController::class)->names('admin.eventos');
+        Route::get('/admin/eventos/crear', [EventoController::class, 'create'])->name('admin.eventos.create');
+        Route::get('/admin/eventos', [EventoController::class, 'index'])->name('admin.eventos.index');
+        Route::get('/admin/eventos/{id}/gestionar', [App\Http\Controllers\EventoController::class, 'gestionar'])->name('admin.eventos.gestionar');
+        Route::post('/admin/eventos/{id}/publicar', [App\Http\Controllers\EventoController::class, 'publicar'])->name('admin.eventos.publicar');
 
         //CRUD de promociones :)
         Route::resource('promociones', PromocionController::class)->names('admin.promociones');
@@ -75,6 +78,6 @@ Route::prefix('admin')->group(function () {
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 });
 
+Route::get('/eventos', [App\Http\Controllers\EventoController::class, 'publicos'])->name('eventos.publicos');
 
-require __DIR__.'/auth.php';
-    
+require __DIR__ . '/auth.php';

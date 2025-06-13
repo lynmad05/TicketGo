@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use App\Models\Evento;
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
@@ -8,14 +10,13 @@ class EventoController extends Controller
 {
     public function index()
     {
-        $eventos = Evento::with('proveedor')->get(); // relación cargada
+        $eventos = \App\Models\Evento::all(); // Muestra todos los eventos, no solo los publicados
         return view('admin.eventos.index', compact('eventos'));
     }
 
     public function create()
     {
-        $proveedores = Proveedor::all();
-        return view('admin.eventos.create', compact('proveedores'));
+        return view('admin.AgregarEvento');
     }
 
     public function store(Request $request)
@@ -26,15 +27,18 @@ class EventoController extends Controller
         $evento->descripcion = $request->descripcion;
         $evento->fecha = $request->fecha;
         $evento->ubicacion = $request->ubicacion;
-        $evento->id_proveedor = $request->id_proveedor;
+        $evento->id_proveedor = 1; // Asigna un proveedor fijo o el que corresponda
 
         // si hay imagen
         if ($request->hasFile('imagen')) {
-            $evento->imagen = $request->file('imagen')->store('eventos', 'public');
+            $path = $request->file('imagen')->store('eventos', 'public');
+            $evento->imagen = $path;
         }
 
         $evento->save();
-        return redirect()->route('admin.eventos.index')->with('success', 'Evento registrado');
+
+        // Redirige a la lista de eventos con mensaje de éxito
+        return redirect()->route('admin.eventos.index')->with('success', 'Evento registrado correctamente');
     }
 
     public function edit($id)
@@ -56,5 +60,53 @@ class EventoController extends Controller
     {
         Evento::destroy($id);
         return back()->with('success', 'Evento eliminado');
+    }
+
+    public function gestionar($id)
+    {
+        $evento = \App\Models\Evento::findOrFail($id);
+        return view('admin.eventos.gestionar', compact('evento'));
+    }
+
+    public function publicar(Request $request, $id)
+    {
+        $request->validate([
+            'precio_vip' => 'required|numeric|min:0',
+            'stock_vip' => 'required|integer|min:0',
+            'ticket_vip' => 'required|integer|min:1',
+            'precio_general' => 'required|numeric|min:0',
+            'stock_general' => 'required|integer|min:0',
+            'ticket_general' => 'required|integer|min:1',
+            'precio_preferencial' => 'required|numeric|min:0',
+            'stock_preferencial' => 'required|integer|min:0',
+            'ticket_preferencial' => 'required|integer|min:1',
+        ]);
+
+        $evento = \App\Models\Evento::findOrFail($id);
+
+        // Guardar entradas (VIP, GENERAL, PREFERENCIAL)
+        $tipos = ['vip', 'general', 'preferencial'];
+        foreach ($tipos as $tipo) {
+            \App\Models\Entrada::updateOrCreate(
+                ['evento_id' => $evento->id_evento, 'tipo' => strtoupper($tipo)],
+                [
+                    'precio' => $request->input("precio_$tipo"),
+                    'stock' => $request->input("stock_$tipo"),
+                    'ticket_por_persona' => $request->input("ticket_$tipo"),
+                ]
+            );
+        }
+
+        // Marcar evento como publicado
+        $evento->publicado = true;
+        $evento->save();
+
+        return redirect()->route('admin.eventos.index')->with('success', '¡Evento publicado correctamente!');
+    }
+
+    public function publicos()
+    {
+        $eventos = \App\Models\Evento::where('publicado', true)->get();
+        return view('usuario.eventos', compact('eventos'));
     }
 }
