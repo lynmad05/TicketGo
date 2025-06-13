@@ -8,10 +8,8 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\PromocionController;
+use App\Http\Controllers\EventoController;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -25,14 +23,32 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
-Route::view('/terminos-condiciones', 'terminos')->name('terminos');
 // Página principal
 Route::view('/', 'welcome')->name('welcome');
 
 // Página de "Sobre Nosotros"
 Route::view('/nosotros', 'nosotros')->name('nosotros');
-Route::view('/principallog', 'usuario.principallog')->name('pagina.principallog');
 
+//Ruta para términos y condiciones. 
+Route::view('/terminos-condiciones', 'terminos')->name('terminos');
+
+// ruta para politica de cookies
+Route::view('/politica-cookies', 'cookies')->name('cookies');
+
+//Ruta para politica de privacidad
+Route::view('/politica-privacidad', 'privacidad')->name('privacidad');
+
+//Ruta para derechos ARCO
+Route::view('/derechos-arco', 'derechos')->name('derechos');
+
+// Ruta para como comprar entradas
+Route::view('/como-comprar-entradas', 'comprar')->name('comprar');
+
+//Ruta para como funcionan los etickets
+Route::view('/como-funcionan-etickets', 'funciona')->name('funciona');
+
+//Página para cuando el usuario se logea por primera vez
+Route::view('/principallog', 'usuario.principallog')->name('pagina.principallog');
 
 
 // Rutas para administrador de eventos :)
