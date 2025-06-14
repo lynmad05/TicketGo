@@ -108,7 +108,6 @@ Route::prefix('admin')->group(function () {
     Route::middleware(['auth', 'adminonly'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         Route::resource('proveedores', ProveedorController::class)->names('admin.proveedores');
-        Route::resource('eventos', EventoController::class)->names('admin.eventos');
         Route::resource('promociones', PromocionController::class)->names('admin.promociones');
     });
 

@@ -1,7 +1,7 @@
 @extends('layouts.elegir')
 @section('añaelegir')
 
-<div class=" bg-white rounded-lg p-6 flex flex-col lg:flex-row gap-6 w-full">
+<div class="bg-white rounded-lg p-6 flex flex-col lg:flex-row gap-6 w-full">
     <!-- FORMULARIO PRINCIPAL -->
     <form action="{{ route('guardar.compra') }}" method="POST" class="flex-1">
         @csrf
@@ -51,7 +51,6 @@
             </div>
         </div>
 
-
         <!-- Tabla de tickets -->
         <div class="border-t border-gray-300 pt-2 text-[10px]">
             <table class="w-full text-gray-600">
@@ -83,10 +82,17 @@
             <span class="text-base font-bold" id="totalFinal">S/. {{ number_format($total, 1) }}</span>
             <input type="hidden" name="total_final" id="inputTotalFinal" value="{{ $total }}">
         </div>
+
+        <!-- ✅ BOTÓN DE ENVÍO (ajustado) -->
+        <div class="mt-6">
+            <button type="submit" class="bg-[#f7b32b] text-white uppercase font-bold text-xs py-2.5 rounded shadow-md hover:shadow-lg transition-shadow text-center w-full">
+                CONTINUAR
+            </button>
+        </div>
     </form>
 
     <!-- ASIDE DERECHO -->
-    <aside class="flex-1 p-4 md:p-8  max-w-md">
+    <aside class="flex-1 p-4 md:p-8 max-w-md">
         <img class="w-full object-cover max-h-[300px]" src="{{ asset('images/usuario/dukiderecho.jpg') }}" alt="Duki Tour" />
         <div class="p-6 flex flex-col space-y-4">
             <p class="text-xs font-semibold text-gray-700">MÚSICA <span class="text-blue-700">/ PRESENCIAL</span></p>
@@ -95,9 +101,6 @@
             <p class="text-xs text-gray-700 leading-relaxed">
                 Luego de batir todos los records con AMERI, que se convirtió en el álbum argentino más escuchado en 24hs, DUKI se prepara para dar la gira más grande de su carrera: WORLD TOUR. El artista hará una parada obligatoria en Perú el próximo 23 de agosto del 2025 para apoderarse y encender el escenario de Multiespacio Costa 21. Las entradas estarán disponibles desde este viernes 8 de noviembre a las 10:00 am por la plataforma de Teleticket.
             </p>
-            <a href="{{ route('pagoduki') }}" class="bg-[#f7b32b] text-white uppercase font-bold text-sm py-3 rounded shadow-md hover:shadow-lg transition-shadow text-center block">
-            CONTINUAR
-            </a>
         </div>
     </aside>
 </div>

@@ -1,6 +1,6 @@
 @extends('layouts.vaucher')
-@section('añavaucher')
 
+@section('añavaucher')
 <main class="max-w-5xl mx-auto p-8 pt-20">
     <section class="bg-white rounded-xl shadow-lg p-10 max-w-3xl mx-auto">
         <h1 class="text-4xl font-extrabold text-gray-900 mb-6">
@@ -16,16 +16,20 @@
             <dl class="grid grid-cols-1 gap-6 text-sm text-gray-700">
                 <div>
                     <dt class="font-semibold">Evento</dt>
-                    <dd>DUKI - AMERI WORLD TOUR 2025</dd> {{-- Esto puede venir de la BD si lo guardas --}}
+                    <dd>DUKI - AMERI WORLD TOUR 2025</dd>
                 </div>
                 <div>
                     <dt class="font-semibold">Fecha y Hora</dt>
-                    <dd>{{ $compra->fecha->format('d/m/Y H:i') }}</dd>
+                    <dd>{{ $compra->fecha ? $compra->fecha->format('d/m/Y H:i') : $compra->created_at->format('d/m/Y H:i') }}</dd>
                 </div>
                 <div>
                     <dt class="font-semibold">Entradas</dt>
-                    @foreach ($detalles as $detalle)
-                        <dd>{{ $detalle->cantidad }} Ticket {{ $detalle->tipo_ticket }} - S/ {{ number_format($detalle->precio_unitario, 2) }}</dd>
+                    @foreach ($compra->detalles as $detalle)
+                        <dd>
+                            {{ $detalle->cantidad }} Ticket {{ strtoupper($detalle->tipo_ticket) }} - 
+                            S/ {{ number_format($detalle->precio_unitario, 2) }} 
+                            (Subtotal: S/ {{ number_format($detalle->cantidad * $detalle->precio_unitario, 2) }})
+                        </dd>
                     @endforeach
                 </div>
                 <div>
@@ -38,11 +42,11 @@
                 </div>
                 <div>
                     <dt class="font-semibold">Método de Pago</dt>
-                    <dd>Tarjeta de crédito</dd> {{-- Puedes guardarlo también si lo necesitas --}}
+                    <dd>Tarjeta de crédito</dd> {{-- Puedes hacerlo dinámico si lo guardas --}}
                 </div>
                 <div>
                     <dt class="font-semibold">Comprador</dt>
-                    <dd>{{ $compra->usuario->name ?? 'Usuario' }}</dd> {{-- Asegúrate de tener la relación en el modelo --}}
+                    <dd>{{ $compra->usuario->name ?? 'Usuario' }}</dd>
                 </div>
             </dl>
 
@@ -54,5 +58,4 @@
         </div>
     </section>
 </main>
-
 @endsection

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CompraController extends Controller
 {
+
     public function guardarCompra(Request $request)
     {
         $data = $request->validate([
@@ -36,6 +37,7 @@ class CompraController extends Controller
             'formato_entrega' => $data['formato_entrega'],
             'total' => $total,
             'estado' => 'pendiente',
+            'fecha' => now(), // ✅ Guarda la fecha para mostrar en el voucher
         ]);
 
         foreach ($tickets as $tipo => $ticket) {
@@ -49,7 +51,6 @@ class CompraController extends Controller
                 ]);
             }
         }
-
 
         // Limpia la sesión para evitar confusión
         session()->forget(['tickets', 'total']);
@@ -130,7 +131,6 @@ class CompraController extends Controller
         });
 
         return view('usuario.pagoduki', compact('resumen', 'totalFinal', 'compra'));
-
     }
 
 
@@ -208,15 +208,12 @@ class CompraController extends Controller
     }
     public function mostrarVoucher($id)
     {
-        $compra = Compra::findOrFail($id);
-        $detalles = CompraDetalle::where('compra_id', $compra->id)->get();
+        $compra = Compra::with(['detalles', 'usuario'])->findOrFail($id);
 
-        return view('usuario.vaucherduki', [
-            'compra' => $compra,
-            'detalles' => $detalles
-        ]);
+        return view('usuario.vaucherduki', compact('compra'));
     }
-     public function vistaVaucher()
+
+    public function vistaVaucher()
     {
         $compraId = session('compra_id');
 
@@ -224,14 +221,15 @@ class CompraController extends Controller
             return redirect()->route('home')->with('error', 'No hay una compra activa.');
         }
 
-        $compra = Compra::find($compraId);
+        $compra = Compra::with(['detalles', 'usuario'])->find($compraId);
 
         if (!$compra) {
             return redirect()->route('home')->with('error', 'Compra no encontrada.');
         }
 
-        return view('usuario.vaucherduki', ['compra' => $compra]); // 👈 muy importante
+        return view('usuario.vaucherduki', ['compra' => $compra]);
     }
+
 
     public function mostrarIdentificador($compra_id)
     {
@@ -256,6 +254,4 @@ class CompraController extends Controller
 
         return view('usuario.identificadorduki', compact('compra', 'resumen', 'totalFinal'));
     }
-
-
 }
