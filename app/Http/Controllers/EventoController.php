@@ -4,19 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Evento;
 use App\Models\Proveedor;
+use App\Models\Carrusel;
 use Illuminate\Http\Request;
 
 class EventoController extends Controller
 {
     public function index()
     {
-        $eventos = \App\Models\Evento::all(); // Muestra todos los eventos, no solo los publicados
+        $eventos = \App\Models\Evento::all();
         return view('admin.eventos.index', compact('eventos'));
     }
 
     public function create()
     {
-        return view('admin.AgregarEvento');
+        $proveedores = \App\Models\Proveedor::where('estado', 'ACTIVO')->get();
+        return view('admin.AgregarEvento', compact('proveedores'));
     }
 
     public function store(Request $request)
@@ -27,7 +29,7 @@ class EventoController extends Controller
         $evento->descripcion = $request->descripcion;
         $evento->fecha = $request->fecha;
         $evento->ubicacion = $request->ubicacion;
-        $evento->id_proveedor = 1; // Asigna un proveedor fijo o el que corresponda
+        $evento->id_proveedor = $request->id_proveedor;
 
         // si hay imagen
         if ($request->hasFile('imagen')) {
@@ -35,10 +37,13 @@ class EventoController extends Controller
             $evento->imagen = $path;
         }
 
-        $evento->save();
+        if ($request->hasFile('imagen_fondo')) {
+            $pathFondo = $request->file('imagen_fondo')->store('eventos', 'public');
+            $evento->imagen_fondo = $pathFondo;
+        }
 
-        // Redirige a la lista de eventos con mensaje de éxito
-        return redirect()->route('admin.eventos.index')->with('success', 'Evento registrado correctamente');
+        $evento->save();
+        return redirect()->route('admin.eventos.index')->with('success', 'Evento registrado');
     }
 
     public function edit($id)
@@ -61,7 +66,6 @@ class EventoController extends Controller
         Evento::destroy($id);
         return back()->with('success', 'Evento eliminado');
     }
-
     public function gestionar($id)
     {
         $evento = \App\Models\Evento::findOrFail($id);
@@ -108,5 +112,24 @@ class EventoController extends Controller
     {
         $eventos = \App\Models\Evento::where('publicado', true)->get();
         return view('usuario.eventos', compact('eventos'));
+    }
+
+    public function explorar()
+    {
+        $eventos = \App\Models\Evento::where('publicado', true)->get();
+        return view('welcome', compact('eventos'));
+    }
+
+    public function usuarioEventos()
+    {
+        $eventos = \App\Models\Evento::where('publicado', 1)->get();
+        $imagenes = Carrusel::all();
+        return view('usuario.principallog', compact('eventos', 'imagenes'));
+    }
+
+    public function show($id)
+    {
+        $evento = Evento::with('entradas')->findOrFail($id);
+        return view('usuario.detalleevento', compact('evento'));
     }
 }
