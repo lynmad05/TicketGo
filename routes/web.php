@@ -39,13 +39,11 @@ Route::view('/derechos-arco', 'derechos')->name('derechos');
 Route::view('/como-comprar-entradas', 'comprar')->name('comprar');
 Route::view('/como-funcionan-etickets', 'funciona')->name('funciona');
 
-Route::get('/etickets', function () {
-    return view('usuario.etickets');
-})->name('usuario.etickets');
+Route::get('/etickets', [CompraController::class, 'mostrarEtickets'])->middleware('auth')->name('usuario.etickets');
 
-Route::get('/compras', function () {
-    return view('usuario.compras');
-})->name('usuario.compras');
+Route::get('/compras', [CompraController::class, 'mostrarCompras'])->middleware('auth')->name('usuario.compras');
+Route::get('/voucher-compra/{compra_id}', [CompraController::class, 'mostrarVoucherCompra'])->middleware('auth')->name('usuario.Voucher');
+Route::post('/enviar-voucher/{compra_id}', [CompraController::class, 'enviarVoucherPorEmail'])->middleware('auth')->name('usuario.enviarVoucher');
 
 // Rutas para compra, pago y documentos
 Route::post('/guardar-detalle', [CompraDetalleController::class, 'guardarDetalle'])->name('guardar.detalle');
@@ -56,6 +54,7 @@ Route::post('/guardar-compra', [CompraController::class, 'guardarCompra'])->name
 
 Route::get('/pago/confirmar', [CompraController::class, 'vistaPago'])->name('pago.confirmar');
 Route::post('/pago', [CompraController::class, 'pagar'])->name('compra.pagar');
+Route::post('/pago-completo', [CompraController::class, 'pagarCompleto'])->name('compra.pagarCompleto');
 Route::get('/pagoduki', [CompraController::class, 'mostrarPagoFinal'])->name('pagoduki');
 Route::delete('/detalle/{id}/eliminar', [CompraController::class, 'eliminarDetalle'])->name('detalle.eliminar');
 Route::get('/identificador-duki/{compra_id}', [CompraController::class, 'mostrarIdentificador'])->name('usuario.identificadorduki');
