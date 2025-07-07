@@ -3,11 +3,13 @@
 @section('contenido')
     <div class="min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
         <!-- Imagen de fondo cubriendo toda la pantalla -->
-        <div class="fixed inset-0 -z-10">
-            <img src="{{ asset('storage/' . $evento->imagen_fondo) }}" alt="Fondo {{ $evento->nombre }}"
-                class="w-full h-full object-cover object-center" />
-            <div class="absolute inset-0 bg-black/60"></div>
-        </div>
+        <!-- Contenedor imagen fondo sin margen ni padding -->
+<div class="fixed inset-0 -z-10">
+  <img src="{{ asset('storage/' . $evento->imagen_fondo) }}" alt="Fondo {{ $evento->nombre }}"
+       class="w-full h-full object-cover object-center" />
+  <div class="absolute inset-0 bg-black/60"></div>
+</div>
+
         <div class="w-full max-w-2xl mx-auto relative">
             <img src="{{ asset('storage/' . $evento->imagen) }}" alt="{{ $evento->nombre }}"
                 class="w-full h-96 object-cover rounded-lg shadow-lg mb-4">
@@ -21,24 +23,25 @@
                 <h5 class="text-white mt-2">{{ $evento->descripcion }}</h5>
             </div>
         </div>
-        <div class="w-full max-w-2xl bg-white bg-opacity-90 rounded-lg shadow-lg mt-8 p-6">
+        <div class="w-full max-w-2xl bg-white bg-opacity-90 rounded-lg shadow-lg mt-8 mb-12 p-6">
             <h2 class="text-2xl font-bold text-center mb-4">Sectores y Precios</h2>
-            <table class="w-full text-center mb-4">
-                <thead>
-                    <tr>
-                        <th class="py-2">Sector</th>
-                        <th class="py-2">Precio</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($evento->entradas as $entrada)
-                        <tr>
-                            <td class="py-2 font-semibold">{{ strtoupper($entrada->tipo) }}</td>
-                            <td class="py-2 text-yellow-600 font-bold">S/. {{ number_format($entrada->precio, 2) }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            <table class="w-full text-center mb-6 border-collapse border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+    <thead>
+        <tr class="bg-gray-50">
+            <th class="py-3 text-gray-700 font-semibold tracking-wide">Sector</th>
+            <th class="py-3 text-gray-700 font-semibold tracking-wide">Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($evento->entradas as $entrada)
+            <tr class="bg-white hover:bg-yellow-50 transition-colors duration-200 cursor-pointer">
+                <td class="py-4 border-t border-gray-200 font-medium text-gray-800">{{ strtoupper($entrada->tipo) }}</td>
+                <td class="py-4 border-t border-gray-200 font-semibold text-yellow-600">S/. {{ number_format($entrada->precio, 2) }}</td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
+
             <div class="flex justify-center gap-4">
                 <a href="{{ url()->previous() }}"
                     class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-8 rounded-full shadow">Volver</a>

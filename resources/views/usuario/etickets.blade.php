@@ -78,6 +78,9 @@
                         <th scope="col" class="px-4 py-3 text-center">Total</th>
                         <th scope="col" class="px-4 py-3 text-center">Enviar</th>
                     </tr>
+                    <tr>
+                        <td colspan="7" style="border-bottom: 2px solid rgb(203, 203, 203); padding: 0;"></td>
+                    </tr>
                 </thead>
                 <tbody>
                     @if ($compras->count() > 0)
@@ -119,11 +122,13 @@
                                         @else
                                             {{-- Si hay múltiples tipos, mostrar con badges --}}
                                             @foreach ($tickets as $tipo => $cantidad)
-                                                <div class="flex items-center justify-between text-xs">
+                                                <div class="flex items-center justify-between text-xs border-t border-gray-300 py-2 first:border-t-0">
                                                     <span class="font-medium">{{ $tipo }}:</span>
                                                     <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded ticket-badge">{{ $cantidad }}</span>
                                                 </div>
                                             @endforeach
+                                            {{-- Mostrar total de tickets al final --}}
+
                                             <div class="border-t border-gray-200 pt-1 mt-1">
                                                 <span class="text-xs font-bold text-gray-600">Total: {{ $totalTickets }} tickets</span>
                                             </div>
@@ -146,6 +151,9 @@
                                         </div>
                                     </button>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td colspan="7" style="border-bottom: 2px solid rgb(203, 203, 203); padding: 0;"></td>
                             </tr>
                         @endforeach
                     @else

@@ -58,15 +58,36 @@
 <section id="seccion-datos-compra" class="hidden">
     <div class="mb-4 bg-white rounded-lg shadow p-6 px-6 w-full md:w-full mx-4">
         {{-- Barra de pasos --}}
-        <div class="flex items-center gap-2 mb-4" id="barra-pasos-datos">
-            <span id="paso-tickets-datos" class="text-gray-400">TICKETS</span>
-            <span class="text-gray-400">/</span>
-            <span id="paso-datos-datos" class="font-bold text-blue-700">DATOS DE COMPRA</span>
-            <span class="text-gray-400">/</span>
-            <span id="paso-confirmado-datos" class="text-gray-400">CONFIRMADO</span>
+        <div class="flex items-center gap-6 mb-10 text-sm md:text-base font-semibold uppercase justify-start" id="barra-pasos-datos">
+            <div class="flex items-center space-x-2 text-black relative">
+                <span class="w-6 h-6 md:w-7 md:h-7 rounded-full border-2 border-black flex items-center justify-center bg-black">
+                    <i class="fas fa-check text-white text-xs"></i>
+                </span>
+                <span class="tracking-wide">Tickets</span>
+                <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-black -mb-5 md:-mb-6"></span>
+            </div>
+            <span class="text-gray-400 text-lg font-bold">/</span>
+            <div class="flex items-center space-x-2 text-black relative">
+                <span class="w-6 h-6 md:w-7 md:h-7 rounded-full border-2 border-black flex items-center justify-center bg-black">
+                    <span class="block w-3 h-3 rounded-full bg-white"></span>
+                </span>
+                <span class="tracking-wide">Datos de compra</span>
+                <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-black -mb-5 md:-mb-6"></span>
+            </div>
+            <span class="text-gray-400 text-lg font-bold">/</span>
+            <div class="flex items-center space-x-2 text-gray-400">
+                <span class="w-6 h-6 md:w-7 md:h-7 rounded-full border border-gray-400 flex items-center justify-center">
+                    <span class="block w-3 h-3 rounded-full bg-gray-400"></span>
+                </span>
+                <span class="tracking-wide">Confirmado</span>
+            </div>
         </div>
+        <div class="px-4 py-2 bg-[#0a2f7a]">
+            <p class="text-xs font-bold text-white uppercase">SELECCIONA TU FORMATO DE ENTREGA</p>
+        </div>
+        <br>
         
-        <h4 class="font-bold mb-2 text-blue-700">SELECCIONA TU FORMATO DE ENTREGA</h4>
+        
         <div class="space-y-4">
             <label class="flex items-center border rounded p-3 cursor-pointer">
                 <input type="radio" name="entrega" value="correo" class="mr-2" checked>

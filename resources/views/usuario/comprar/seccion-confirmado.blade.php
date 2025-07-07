@@ -1,13 +1,33 @@
 {{-- Sección de Confirmado --}}
 <div id="seccion-confirmado" class="hidden">
-    <div class="flex items-center gap-2 mb-4">
-        <span id="paso-tickets-confirmado" class="text-gray-400">TICKETS</span>
-        <span class="text-gray-400">/</span>
-        <span id="paso-datos-confirmado" class="text-gray-400">DATOS DE COMPRA</span>
-        <span class="text-gray-400">/</span>
-        <span id="paso-confirmado-confirmado" class="font-bold text-blue-700">CONFIRMADO</span>
+    <div class="flex items-center gap-6 mb-10 text-sm md:text-base font-semibold uppercase justify-start" id="barra-pasos-confirmado">
+        <div class="flex items-center space-x-2 text-black relative">
+            <span class="w-6 h-6 md:w-7 md:h-7 rounded-full border-2 border-black flex items-center justify-center bg-black">
+                <i class="fas fa-check text-white text-xs"></i>
+            </span>
+            <span class="tracking-wide">Tickets</span>
+            <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-black -mb-5 md:-mb-6"></span>
+        </div>
+        <span class="text-gray-400 text-lg font-bold">/</span>
+        <div class="flex items-center space-x-2 text-black relative">
+            <span class="w-6 h-6 md:w-7 md:h-7 rounded-full border-2 border-black flex items-center justify-center bg-black">
+                <i class="fas fa-check text-white text-xs"></i>
+            </span>
+            <span class="tracking-wide">Datos de compra</span>
+            <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-black -mb-5 md:-mb-6"></span>
+        </div>
+        <span class="text-gray-400 text-lg font-bold">/</span>
+        <div class="flex items-center space-x-2 text-black relative">
+            <span class="w-6 h-6 md:w-7 md:h-7 rounded-full border-2 border-black flex items-center justify-center bg-black">
+                <i class="fas fa-check text-white text-xs"></i>
+            </span>
+            <span class="tracking-wide">Confirmado</span>
+            <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-black -mb-5 md:-mb-6"></span>
+        </div>
     </div>
-    
+    <br>
+
+
     <div class="flex flex-col items-center justify-center min-h-[60vh]">
         <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md relative">
             <button onclick="cerrarModal()"
@@ -37,15 +57,18 @@
                     </div>
                 </div>
                 
-                <a href="#"
-                    class="bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-8 rounded-full shadow mt-2 block text-center"
-                    target="_blank" id="descargarBoletoBtn">
-                    Descargar Boleto
-                </a>
-                <a href="/usuario/principallog"
-                    class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-8 rounded-full shadow mt-2 block text-center">
-                    Volver Inicio
-                </a>
+                <div class="flex space-x-4 mt-2">
+                    <a href="#"
+                        class="bg-blue-700 hover:bg-blue-600 text-white font-bold py-2 px-8 rounded-full shadow text-center"
+                        target="_blank" id="descargarBoletoBtn">
+                        Descargar Boleto
+                    </a>
+                    <a href="/usuario/principallog"
+                        class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-8 rounded-full shadow text-center">
+                        Volver Inicio
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>
