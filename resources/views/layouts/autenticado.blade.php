@@ -64,6 +64,7 @@
                     <li><a href="{{ route('terminos') }}" class="hover:underline">Términos y condiciones</a></li>
                     <li><a href="{{ route('cookies') }}" class="hover:underline">Política de cookies</a></li>
                     <li><a href="{{ route('privacidad') }}" class="hover:underline">Política de privacidad</a></li>
+                    <li><a href="{{ route('derechos') }}" class="hover:underline">Derechos Arco</a></li>
                 </ul>
             </div>
             <!-- Necesitas ayuda -->
@@ -72,7 +73,6 @@
                 <ul class="space-y-1 text-sm">
                     <li><a href="{{ route('comprar') }}" class="hover:underline">Cómo comprar entradas</a></li>
                     <li><a href="{{ route('funciona') }}" class="hover:underline">Cómo funcionan los e-tickets</a></li>
-                    <li><a href="{{ route('derechos') }}" class="hover:underline">Derechos Arco</a></li>
                 </ul>
             </div>
         </div>

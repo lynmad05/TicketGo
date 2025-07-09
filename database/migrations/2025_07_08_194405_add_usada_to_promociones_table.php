@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('compras', function (Blueprint $table) {
-            $table->string('celular')->nullable()->after('usuario_id');
+        Schema::table('promociones', function (Blueprint $table) {
+            $table->boolean('usada')->default(false)->after('estado');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('compras', function (Blueprint $table) {
-            $table->dropColumn('celular');
+        Schema::table('promociones', function (Blueprint $table) {
+            $table->dropColumn('usada');
         });
     }
 };

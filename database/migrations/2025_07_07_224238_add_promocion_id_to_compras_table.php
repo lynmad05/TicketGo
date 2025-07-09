@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('compras', function (Blueprint $table) {
-            $table->string('celular')->nullable()->after('usuario_id');
+            $table->unsignedBigInteger('promocion_id')->nullable()->after('evento_id');
+            $table->foreign('promocion_id')->references('id_promocion')->on('promociones')->nullOnDelete();
         });
     }
 
@@ -22,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('compras', function (Blueprint $table) {
-            $table->dropColumn('celular');
+            $table->dropForeign(['promocion_id']);
+            $table->dropColumn('promocion_id');
         });
     }
 };
