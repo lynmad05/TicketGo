@@ -15,11 +15,15 @@ class EventoController extends Controller
         return view('admin.eventos.index', compact('eventos'));
     }
 
+    //------------------------------------------------------------------------------------------
+
     public function create()
     {
         $proveedores = \App\Models\Proveedor::where('estado', 'ACTIVO')->get();
         return view('admin.AgregarEvento', compact('proveedores'));
     }
+
+    //------------------------------------------------------------------------------------------
 
     public function store(Request $request)
     {
@@ -46,12 +50,16 @@ class EventoController extends Controller
         return redirect()->route('admin.eventos.index')->with('success', 'Evento registrado');
     }
 
+    //------------------------------------------------------------------------------------------
+
     public function edit($id)
     {
         $evento = Evento::findOrFail($id);
         $proveedores = Proveedor::all();
         return view('admin.eventos.edit', compact('evento', 'proveedores'));
     }
+
+    //------------------------------------------------------------------------------------------
 
     public function update(Request $request, $id)
     {
@@ -61,16 +69,23 @@ class EventoController extends Controller
         return redirect()->route('admin.eventos.index')->with('success', 'Evento actualizado');
     }
 
+    //------------------------------------------------------------------------------------------
+
     public function destroy($id)
     {
         Evento::destroy($id);
         return back()->with('success', 'Evento eliminado');
     }
+
+    //------------------------------------------------------------------------------------------
     public function gestionar($id)
     {
         $evento = \App\Models\Evento::findOrFail($id);
         return view('admin.eventos.gestionar', compact('evento'));
     }
+
+
+    //------------------------------------------------------------------------------------------
 
     public function publicar(Request $request, $id)
     {
@@ -108,11 +123,15 @@ class EventoController extends Controller
         return redirect()->route('admin.eventos.index')->with('success', '¡Evento publicado correctamente!');
     }
 
+    //------------------------------------------------------------------------------------------
+
     public function publicos()
     {
         $eventos = \App\Models\Evento::where('publicado', true)->get();
         return view('usuario.eventos', compact('eventos'));
     }
+
+    //------------------------------------------------------------------------------------------
 
     public function explorar()
     {
@@ -120,12 +139,16 @@ class EventoController extends Controller
         return view('welcome', compact('eventos'));
     }
 
+    //------------------------------------------------------------------------------------------
+
     public function usuarioEventos()
     {
         $eventos = \App\Models\Evento::where('publicado', 1)->get();
         $imagenes = Carrusel::all();
         return view('usuario.principallog', compact('eventos', 'imagenes'));
     }
+
+    //------------------------------------------------------------------------------------------
 
     public function show($id)
     {

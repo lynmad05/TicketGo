@@ -1,16 +1,15 @@
 {{-- Sección de Selección de Tickets --}}
 <style>
-    /* Ocultar flechitas del input number */
     .cantidad-input::-webkit-outer-spin-button,
     .cantidad-input::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
     }
-    
+
     .cantidad-input[type=number] {
         -moz-appearance: textfield;
     }
-    
+
     /* Estilos para entradas sin stock */
     .entrada-item.sin-stock {
         opacity: 0.7;
@@ -19,12 +18,17 @@
         border-radius: 8px;
         padding: 8px;
     }
-    
+
     .entrada-item.sin-stock:hover {
         opacity: 0.8;
     }
 </style>
 <section id="seccion-tickets">
+    @if(isset($yaCompro) && $yaCompro)
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6 text-center font-bold text-lg">
+            Ya has realizado una compra para este evento. Solo se permite una compra por usuario. ¡Gracias por tu interés!
+        </div>
+    @endif
     <div class="mb-4 bg-white rounded-lg shadow p-6 px-6 w-full md:w-full mx-4">
         {{-- Barra de pasos --}}
         <div class="flex items-center gap-6 mb-10 text-sm md:text-base font-semibold uppercase justify-start"
@@ -101,19 +105,24 @@
                 </div>
             </div>
 
-            <div class="mb-4">
+            {{-- SECCIÓN DE ENTRADAS --}}
+            <div class="mb-6">
+                <h4 class="font-bold text-lg text-gray-800 mb-4 border-b border-gray-200 pb-2">ENTRADAS DISPONIBLES</h4>
+
                 @php
-                    $todasSinStock = $evento->entradas->every(function($entrada) {
+                    $todasSinStock = $evento->entradas->every(function ($entrada) {
                         return $entrada->stock <= 0;
                     });
                 @endphp
-                
-                @if($todasSinStock)
+
+                @if ($todasSinStock)
                     <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
                         <div class="flex items-start">
                             <div class="flex-shrink-0">
                                 <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                        clip-rule="evenodd" />
                                 </svg>
                             </div>
                             <div class="ml-3">
@@ -127,110 +136,164 @@
                         </div>
                     </div>
                 @endif
-                
-                <div class="flex flex-col gap-2" id="entradas-lista">
-                    @foreach ($evento->entradas as $entrada)
-                        @php
-                            $maximo = min($entrada->ticket_por_persona, $entrada->stock);
-                            $sinStock = $entrada->stock <= 0;
-                        @endphp
-                        <div class="flex items-center justify-between entrada-item {{ $sinStock ? 'sin-stock' : '' }}" 
-                            data-id="{{ $entrada->id }}"
-                            data-tipo="{{ strtoupper($entrada->tipo) }}" data-precio="{{ $entrada->precio }}"
-                            style="gap: 1rem;">
 
-                            <div class="w-1/3 font-semibold {{ $sinStock ? 'text-gray-400' : '' }}">
-                                {{ strtoupper($entrada->tipo) }}
-                                @if($sinStock)
-                                    <span class="text-red-500 text-xs block">SIN STOCK</span>
-                                @endif
-                            </div>
+                {{-- Tabla de entradas --}}
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div
+                        class="grid grid-cols-12 gap-4 mb-3 text-sm font-semibold text-gray-700 border-b border-gray-300 pb-2">
+                        <div class="col-span-3">TIPO</div>
+                        <div class="col-span-3">PRECIO</div>
+                        <div class="col-span-3">CANTIDAD</div>
+                        <div class="col-span-3">STOCK</div>
+                    </div>
 
-                            <div class="w-1/3 {{ $sinStock ? 'text-gray-400' : '' }}">
-                                S/. {{ number_format($entrada->precio, 2) }}
-                            </div>
+                    <div class="space-y-3" id="entradas-lista">
+                        @foreach ($evento->entradas as $entrada)
+                            @php
+                                $maximo = min($entrada->ticket_por_persona, $entrada->stock);
+                                $sinStock = $entrada->stock <= 0;
+                            @endphp
+                            <div class="grid grid-cols-12 gap-4 items-center entrada-item {{ $sinStock ? 'sin-stock' : '' }} py-2"
+                                data-id="{{ $entrada->id }}" data-tipo="{{ strtoupper($entrada->tipo) }}"
+                                data-precio="{{ $entrada->precio }}">
 
-                            <div class="w-1/3 flex items-center space-x-2">
-                                @if($sinStock)
-                                    <div class="text-red-500 text-xs font-bold bg-red-50 border border-red-200 rounded px-3 py-1">
-                                        NO DISPONIBLE
-                                    </div>
-                                @else
-                                    <button type="button"
-                                        class="decrease border border-gray-300 rounded px-2 py-0.5 text-xs font-bold hover:bg-gray-100">-</button>
-                                    <input type="number" min="0" max="{{ $maximo }}" value="0"
-                                        class="border rounded w-16 text-center cantidad-input"
-                                        name="cantidad[{{ $entrada->id }}]"
-                                        style="-webkit-appearance: none; -moz-appearance: textfield; appearance: textfield;">
-                                    <button type="button"
-                                        class="increase border border-gray-300 rounded px-2 py-0.5 text-xs font-bold hover:bg-gray-100">+</button>
-                                @endif
-                            </div>
+                                <div
+                                    class="col-span-3 font-semibold {{ $sinStock ? 'text-gray-400' : 'text-gray-800' }}">
+                                    {{ strtoupper($entrada->tipo) }}
+                                    @if ($sinStock)
+                                        <span class="text-red-500 text-xs block">SIN STOCK</span>
+                                    @endif
+                                </div>
 
-                            <div class="flex flex-col text-xs text-gray-500 ml-4">
-                                @if($sinStock)
-                                    <span class="text-red-500 font-bold">Stock: 0</span>
-                                @else
-                                    <span>Máx: {{ $maximo }}</span>
-                                    <span>Stock: {{ $entrada->stock }}</span>
-                                @endif
+                                <div class="col-span-3 {{ $sinStock ? 'text-gray-400' : 'text-gray-800' }}">
+                                    S/. {{ number_format($entrada->precio, 2) }}
+                                </div>
+
+                                <div class="col-span-3 flex items-center space-x-2">
+                                    @if ($sinStock)
+                                        <div
+                                            class="text-red-500 text-xs font-bold bg-red-50 border border-red-200 rounded px-3 py-1">
+                                            NO DISPONIBLE
+                                        </div>
+                                    @else
+                                        <button type="button"
+                                            class="decrease border border-gray-300 rounded px-2 py-0.5 text-xs font-bold hover:bg-gray-100"
+                                            @if(isset($yaCompro) && $yaCompro) disabled @endif>-</button>
+                                        <input type="number" min="0" max="{{ $maximo }}" value="0"
+                                            class="border rounded w-16 text-center cantidad-input"
+                                            name="cantidad[{{ $entrada->id }}]"
+                                            style="-webkit-appearance: none; -moz-appearance: textfield; appearance: textfield;"
+                                            @if(isset($yaCompro) && $yaCompro) disabled @endif>
+                                        <button type="button"
+                                            class="increase border border-gray-300 rounded px-2 py-0.5 text-xs font-bold hover:bg-gray-100"
+                                            @if(isset($yaCompro) && $yaCompro) disabled @endif>+</button>
+                                    @endif
+                                </div>
+
+                                <div class="col-span-3 text-xs text-gray-500">
+                                    @if ($sinStock)
+                                        <span class="text-red-500 font-bold">Stock: 0</span>
+                                    @else
+                                        <div class="space-y-1">
+                                            <div>Máx: {{ $maximo }}</div>
+                                            <div>Stock: {{ $entrada->stock }}</div>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
             </div>
 
-            {{-- BLOQUE DE PROMOCIONES --}}
-            <div class="flex flex-col gap-2 mt-6" id="promociones-lista">
-                <h4 class="font-bold text-yellow-500">PROMOCIONES DISPONIBLES</h4>
-                @if($promociones->count() > 0)
-                    @foreach ($promociones as $promo)
-                        <div class="flex items-center justify-between promo-item border border-yellow-300 rounded p-2 bg-yellow-50 cursor-pointer hover:bg-yellow-100 transition-colors duration-200"
-                            data-id="{{ $promo->id_promocion }}" data-nombre="{{ $promo->nombre }}"
-                            data-precio="{{ $promo->valor ?? 0 }}" onclick="seleccionarPromocion(this)">
-                            <div>
-                                <span class="font-semibold">{{ $promo->nombre }}</span>
-                                <span class="text-xs text-gray-600 ml-2">{{ $promo->descripcion }}</span>
-                            </div>
-                            <span>S/. {{ number_format($promo->valor ?? 0, 2) }}</span>
-                            <input type="radio" name="promo_seleccionada" value="{{ $promo->id_promocion }}"
-                                class="promo-radio" onclick="event.stopPropagation()">
+            {{-- SECCIÓN DE PROMOCIONES --}}
+            <div class="mb-6">
+                <h4 class="font-bold text-lg text-yellow-600 mb-4 border-b border-yellow-200 pb-2">PROMOCIONES
+                    DISPONIBLES</h4>
+
+                <div class="bg-yellow-50 rounded-lg p-4" id="promociones-lista">
+                    @if ($promociones->count() > 0)
+                        <div
+                            class="grid grid-cols-12 gap-4 mb-3 text-sm font-semibold text-yellow-700 border-b border-yellow-300 pb-2">
+                            <div class="col-span-6">PROMOCIÓN</div>
+                            <div class="col-span-3">PRECIO</div>
+                            <div class="col-span-3">SELECCIONAR</div>
                         </div>
-                    @endforeach
-                @else
-                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0">
-                                <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                            <div class="ml-3">
-                                <h3 class="text-sm font-medium text-gray-800">
-                                    No hay promociones disponibles
-                                </h3>
-                                <div class="mt-2 text-sm text-gray-700">
-                                    <p>Ya has utilizado todas las promociones disponibles para este evento o no hay promociones activas en este momento.</p>
+
+                        <div class="space-y-3">
+                            @foreach ($promociones as $promo)
+                                <div class="grid grid-cols-12 gap-4 items-center promo-item border border-yellow-300 rounded p-3 bg-white cursor-pointer hover:bg-yellow-100 transition-colors duration-200"
+                                    data-id="{{ $promo->id_promocion }}" data-nombre="{{ $promo->nombre }}"
+                                    data-precio="{{ $promo->valor ?? 0 }}" onclick="seleccionarPromocion(this)">
+
+                                    <div class="col-span-6">
+                                        <div class="font-semibold text-gray-800">{{ $promo->nombre }}</div>
+                                        <div class="text-xs text-gray-600">{{ $promo->descripcion }}</div>
+                                    </div>
+
+                                    <div class="col-span-3 text-gray-800">
+                                        S/. {{ number_format($promo->valor ?? 0, 2) }}
+                                    </div>
+
+                                    <div class="col-span-3 flex justify-center">
+                                        <input type="radio" name="promo_seleccionada"
+                                            value="{{ $promo->id_promocion }}" class="promo-radio"
+                                            onclick="event.stopPropagation()" @if(isset($yaCompro) && $yaCompro) disabled @endif>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-gray-800">
+                                        No hay promociones disponibles
+                                    </h3>
+                                    <div class="mt-2 text-sm text-gray-700">
+                                        <p>Ya has utilizado todas las promociones disponibles para este evento o no hay
+                                            promociones activas en este momento.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endif
+                    @endif
+                </div>
             </div>
 
             <button id="agregarBtn"
-                class="bg-blue-700 text-white font-bold py-2 px-8 rounded-full shadow mt-4 opacity-50 cursor-not-allowed"
-                disabled>
+                class="bg-blue-700 text-white font-bold py-2 px-8 rounded-full shadow mt-4 @if(isset($yaCompro) && $yaCompro) opacity-50 cursor-not-allowed @endif"
+                @if(isset($yaCompro) && $yaCompro) disabled @endif>
                 Agregar
             </button>
-
-
         </div>
 
-        {{-- Resumen --}}
+        {{-- SECCIÓN DE RESUMEN --}}
         <div class="mt-6">
             <h3 class="font-bold mb-2">RESUMEN</h3>
-            <ul id="resumen-lista" class="mb-2"></ul>
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-sm" id="resumen-lista">
+                    <thead>
+                        <tr class="text-left text-gray-600 border-b">
+                            <th class="py-1 px-2">Detalle</th>
+                            <th class="py-1 px-2 text-right">Cantidad</th>
+                            <th class="py-1 px-2 text-right">Precio Unitario</th>
+                            <th class="py-1 px-2 text-right">Total</th>
+                            <th class="py-1 px-2"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{-- Aquí se llenan las filas dinámicamente con JS --}}
+                    </tbody>
+                </table>
+            </div>
             <div class="font-bold text-right mt-2">SUBTOTAL: S/. <span id="total-monto">0.00</span></div>
         </div>
 
@@ -240,8 +303,8 @@
                 Volver
             </button>
             <button id="continuarBtn"
-                class="bg-blue-700 text-white font-bold py-2 px-8 rounded-full shadow mt-4 opacity-50 cursor-not-allowed"
-                disabled>
+                class="bg-blue-700 text-white font-bold py-2 px-8 rounded-full shadow mt-4 @if(isset($yaCompro) && $yaCompro) opacity-50 cursor-not-allowed @endif"
+                @if(isset($yaCompro) && $yaCompro) disabled @endif>
                 Continuar
             </button>
         </div>
@@ -277,3 +340,21 @@
         </div>
     </div>
 </section>
+@if(isset($yaCompro) && $yaCompro)
+<script>
+    // Prevenir cualquier intento de submit o click en los botones de compra
+    document.addEventListener('DOMContentLoaded', function() {
+        // Deshabilitar todos los inputs, radios y botones de la sección de tickets EXCEPTO el botón Volver
+        document.querySelectorAll('#seccion-tickets input, #seccion-tickets button:not(#volverBtn)').forEach(function(el) {
+            el.disabled = true;
+        });
+        // Opcional: Prevenir cualquier submit
+        const form = document.querySelector('#seccion-tickets form');
+        if(form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+            });
+        }
+    });
+</script>
+@endif

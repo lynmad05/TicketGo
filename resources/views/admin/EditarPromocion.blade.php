@@ -3,8 +3,8 @@
 @section('titulo', 'Editar Promoción')
 
 @section('contenido')
-    <div class="w-full max-w-2xl mx-auto bg-white p-8 mt-10 rounded shadow border border-yellow-700">
-        <h2 class="text-2xl font-bold mb-6 text-gray-800">Editar Promoción</h2>
+    <div class="w-full max-w-2xl mx-auto bg-white p-8 mt-10 rounded shadow border">
+        <h2 class="text-2xl font-bold mb-6 text-black">Editar Promoción</h2>
 
         <form action="{{ route('admin.promociones.update', $promocion->id_promocion) }}" method="POST">
             @csrf
@@ -13,15 +13,13 @@
             <div class="flex items-center mb-4">
                 <label for="nombre" class="w-32 text-gray-700 font-semibold">Nombre</label>
                 <input type="text" id="nombre" name="nombre" value="{{ old('nombre', $promocion->nombre) }}"
-                    class="flex-1 border border-yellow-500 px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-yellow-400"
-                    required>
+                    class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-black" required>
             </div>
 
             <div class="flex items-center mb-4">
                 <label for="tipo" class="w-32 text-gray-700 font-semibold">Tipo</label>
                 <select id="tipo" name="tipo"
-                    class="flex-1 border border-yellow-500 px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-yellow-400"
-                    required>
+                    class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-black" required>
                     <option value="">Selecciona un tipo</option>
                     <option value="Monto" {{ old('tipo', $promocion->tipo) == 'Monto' ? 'selected' : '' }}>Monto</option>
                     <option value="2x1" {{ old('tipo', $promocion->tipo) == '2x1' ? 'selected' : '' }}>2x1</option>
@@ -32,20 +30,18 @@
                 <label for="valor" class="w-32 text-gray-700 font-semibold">Valor</label>
                 <input type="number" step="0.01" id="valor" name="valor"
                     value="{{ old('valor', $promocion->valor) }}"
-                    class="flex-1 border border-yellow-500 px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-yellow-400"
-                    required>
+                    class="flex-1 border px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-yellow-400" required>
             </div>
 
             <div class="flex items-center mb-4">
                 <label for="id_evento" class="w-32 text-gray-700 font-semibold">Evento</label>
                 <select id="id_evento" name="id_evento"
-                    class="flex-1 border border-yellow-500 px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-yellow-400"
-                    required>
+                    class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-black" required>
                     <option value="">Seleccionar</option>
                     @foreach ($eventos as $evento)
                         <option value="{{ $evento->id_evento }}"
                             {{ $evento->id_evento == $promocion->id_evento ? 'selected' : '' }}>
-                            {{ $evento->nombre }}
+                            {{ strlen($evento->nombre) > 50 ? substr($evento->nombre, 0, 50) . '...' : $evento->nombre }}
                         </option>
                     @endforeach
                 </select>
@@ -55,15 +51,13 @@
                 <label for="fecha_inicio" class="w-32 text-gray-700 font-semibold">Fecha Inicio</label>
                 <input type="date" id="fecha_inicio" name="fecha_inicio"
                     value="{{ old('fecha_inicio', $promocion->fecha_inicio) }}"
-                    class="flex-1 border border-yellow-500 px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-yellow-400"
-                    required>
+                    class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-black" required>
             </div>
 
             <div class="flex items-center mb-4">
                 <label for="fecha_fin" class="w-32 text-gray-700 font-semibold">Fecha Fin</label>
                 <input type="date" id="fecha_fin" name="fecha_fin" value="{{ old('fecha_fin', $promocion->fecha_fin) }}"
-                    class="flex-1 border border-yellow-500 px-3 py-2 rounded-md focus:outline-none focus:ring focus:ring-yellow-400"
-                    required>
+                    class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-black" required>
             </div>
 
             <div class="flex items-center mb-6">
@@ -84,9 +78,9 @@
 
             <div class="flex justify-between">
                 <button
-                    type="submit"class="bg-blue-700 text-white px-6 py-2 rounded font-semibold hover:bg-blue-600">Actualizar</button>
+                    type="submit"class="bg-blue-700 text-white px-6 py-2 rounded font-semibold hover:bg-blue-800">Actualizar</button>
                 <a href="{{ route('admin.promociones.index') }}"
-                    class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Cancelar</a>
+                    class="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500">Cancelar</a>
             </div>
         </form>
 

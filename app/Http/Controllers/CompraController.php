@@ -27,6 +27,17 @@ class CompraController extends Controller
             return redirect()->route('elegir.formato')->with('error', 'No hay tickets seleccionados');
         }
 
+        // Obtener el evento_id de la sesión
+        $eventoId = session('evento_id');
+        $usuarioId = Auth::id();
+        // Verificar si el usuario ya tiene una compra para este evento
+        $yaCompro = Compra::where('usuario_id', $usuarioId)
+            ->where('evento_id', $eventoId)
+            ->exists();
+        if ($yaCompro) {
+            return redirect()->route('inicio')->with('error', 'Ya has realizado una compra para este evento. Solo se permite una compra por usuario.');
+        }
+
         // Calcular total real
         $total = 0;
         foreach ($tickets as $ticket) {
@@ -382,6 +393,7 @@ class CompraController extends Controller
             ->get();
         
         // Filtrar promociones que ya han sido utilizadas por el usuario
+        $yaCompro = false;
         if (Auth::check()) {
             $usuarioId = Auth::id();
             
@@ -389,9 +401,13 @@ class CompraController extends Controller
             $promociones = $promociones->filter(function($promocion) use ($usuarioId, $evento) {
                 return !$promocion->haSidoUsadaPorUsuario($usuarioId, $evento->id_evento);
             });
+            // Verificar si el usuario ya compró para este evento
+            $yaCompro = \App\Models\Compra::where('usuario_id', $usuarioId)
+                ->where('evento_id', $evento->id_evento)
+                ->exists();
         }
         
-        return view('usuario.comprar', compact('evento', 'promociones'));
+        return view('usuario.comprar', compact('evento', 'promociones', 'yaCompro'));
     }
 
     public function procesarCompra(Request $request)
@@ -403,6 +419,7 @@ class CompraController extends Controller
             $tickets = [];
             $formaEntrega = $request->forma_entrega ?? 'correo';
             $costoEntrega = 0;
+            $usuarioId = Auth::id();
             
             // Procesar entradas si existen
             if ($request->entradas && count($request->entradas) > 0) {
@@ -462,6 +479,15 @@ class CompraController extends Controller
             // Verificar que tenemos un evento_id
             if ($eventoId === null) {
                 throw new \Exception('No se pudo determinar el evento para la compra.');
+            }
+            
+            // RESTRICCIÓN: Solo una compra por usuario por evento
+            $yaCompro = Compra::where('usuario_id', $usuarioId)
+                ->where('evento_id', $eventoId)
+                ->exists();
+            if ($yaCompro) {
+                DB::rollBack();
+                return response()->json(['success' => false, 'message' => 'Ya has realizado una compra para este evento. Solo se permite una compra por usuario.'], 400);
             }
             
             // Guardar el evento_id y tickets en la sesión

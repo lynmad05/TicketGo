@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class AdminAuthController extends Controller
         // Verificar si el correo existe en la base de datos
         if (! \App\Models\User::where('email', $request->email)->exists()) {
             return back()->withErrors(['email' => 'El correo electrónico ingresado no está registrado.'])
-                        ->withInput($request->except('password', 'g_recaptcha_response'));
+                ->withInput($request->except('password', 'g_recaptcha_response'));
         }
 
         $credentials = $request->only('email', 'password');
@@ -44,13 +45,15 @@ class AdminAuthController extends Controller
             } else {
                 Auth::logout();
                 return back()->withErrors(['email' => 'No tiene permisos de administrador.'])
-                            ->withInput($request->except('password', 'g_recaptcha_response'));
+                    ->withInput($request->except('password', 'g_recaptcha_response'));
             }
         }
 
         return back()->withErrors(['password' => 'La contraseña ingresada es incorrecta.'])
-                    ->withInput($request->except('password', 'g_recaptcha_response'));
+            ->withInput($request->except('password', 'g_recaptcha_response'));
     }
+
+    //------------------------------------------------------------------------------------------
 
     public function logout(Request $request)
     {
@@ -61,6 +64,7 @@ class AdminAuthController extends Controller
         return redirect()->route('admin.login');
     }
 
+    //------------------------------------------------------------------------------------------
     /**
      * Verify reCAPTCHA token
      */

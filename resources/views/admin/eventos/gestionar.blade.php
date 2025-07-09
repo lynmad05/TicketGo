@@ -11,101 +11,86 @@
             <form action="{{ route('admin.eventos.publicar', $evento->id_evento) }}" method="POST">
                 @csrf
                 <!-- VIP -->
-                <div class="border-2 border-yellow-500 rounded-lg p-6 bg-white shadow-md">
+                <div class="border-2 rounded-lg p-6 bg-white shadow-md">
                     <div class="mb-4">
-                        <label class="block text-gray-700 mb-1">Tipo de Entrada: <span class="text-lg font-semibold">VIP</span></label>
+                        <label class="block text-gray-700 mb-1">Tipo de Entrada: <span
+                                class="text-lg font-semibold">VIP</span></label>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 mb-1">Precio (S/):</label>
                         <input type="number" name="precio_vip" required
-                            class="w-full border border-yellow-500 px-3 py-2 rounded focus:outline-none focus:ring focus:ring-yellow-400 text-lg font-bold text-right"
-                            placeholder="0.00"
-                            step="0.01"
-                            min="0">
-                        </div>
+                            class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400"
+                            placeholder="0.00" step="0.01" min="0">
+                    </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 mb-1">Ticket Por Persona:</label>
                         <input type="text" name="ticket_vip" required
-                            class="w-full border border-gray-300 px-3 py-2 rounded text-lg font-semibold text-right"
-                            placeholder="0"
-                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                            inputmode="numeric">
+                            class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-black"
+                            placeholder="0" oninput="this.value = this.value.replace(/[^0-9]/g, '')" inputmode="numeric">
                     </div>
                     <div>
                         <label class="block text-gray-700 mb-1">Stock:</label>
                         <input type="text" name="stock_vip" required
-                            class="w-full border border-gray-300 px-3 py-2 rounded text-lg font-semibold text-right"
-                            placeholder="0"
-                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                            inputmode="numeric">
+                            class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-black"
+                            placeholder="0" oninput="this.value = this.value.replace(/[^0-9]/g, '')" inputmode="numeric">
                     </div>
                 </div>
                 <!-- GENERAL -->
-                <div class="border-2 border-yellow-500 rounded-lg p-6 bg-white shadow-md">
+                <div class="border-2 rounded-lg p-6 bg-white shadow-md">
                     <div class="mb-4">
-                        <label class="block text-gray-700 mb-1">Tipo de Entrada: <span class="text-lg font-semibold">GENERAL</span></label>
+                        <label class="block text-gray-700 mb-1">Tipo de Entrada: <span
+                                class="text-lg font-semibold">GENERAL</span></label>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 mb-1">Precio (S/):</label>
                         <input type="number" name="precio_general" required
-                            class="w-full border border-yellow-500 px-3 py-2 rounded focus:outline-none focus:ring focus:ring-yellow-400 text-lg font-bold text-right"
-                            placeholder="0.00"
-                            step="0.01"
-                            min="0">
+                            class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400"
+                            placeholder="0.00" step="0.01" min="0">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 mb-1">Ticket Por Persona:</label>
                         <input type="text" name="ticket_general" required
-                            class="w-full border border-gray-300 px-3 py-2 rounded text-lg font-semibold text-right"
-                            placeholder="0"
-                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                            inputmode="numeric">
+                            class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-black"
+                            placeholder="0" oninput="this.value = this.value.replace(/[^0-9]/g, '')" inputmode="numeric">
                     </div>
                     <div>
                         <label class="block text-gray-700 mb-1">Stock:</label>
                         <input type="text" name="stock_general" required
-                            class="w-full border border-gray-300 px-3 py-2 rounded text-lg font-semibold text-right"
-                            placeholder="0"
-                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                            inputmode="numeric">
+                            class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-black"
+                            placeholder="0" oninput="this.value = this.value.replace(/[^0-9]/g, '')" inputmode="numeric">
                     </div>
                 </div>
                 <!-- PREFERENCIAL -->
-                <div class="border-2 border-yellow-500 rounded-lg p-6 bg-white shadow-md">
+                <div class="border-2 rounded-lg p-6 bg-white shadow-md">
                     <div class="mb-4">
-                        <label class="block text-gray-700 mb-1">Tipo de Entrada: <span class="text-lg font-semibold">PREFERENCIAL</span></label>
+                        <label class="block text-gray-700 mb-1">Tipo de Entrada: <span
+                                class="text-lg font-semibold">PREFERENCIAL</span></label>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 mb-1">Precio (S/):</label>
                         <input type="number" name="precio_preferencial" required
-                            class="w-full border border-yellow-500 px-3 py-2 rounded focus:outline-none focus:ring focus:ring-yellow-400 text-lg font-bold text-right"
-                            placeholder="0.00"
-                            step="0.01"
-                            min="0">
+                            class="w-full border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400"
+                            placeholder="0.00" step="0.01" min="0">
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 mb-1">Ticket Por Persona:</label>
                         <input type="text" name="ticket_preferencial" required
-                            class="w-full border border-gray-300 px-3 py-2 rounded text-lg font-semibold text-right"
-                            placeholder="0"
-                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                            inputmode="numeric">
+                            class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-black"
+                            placeholder="0" oninput="this.value = this.value.replace(/[^0-9]/g, '')" inputmode="numeric">
                     </div>
                     <div>
                         <label class="block text-gray-700 mb-1">Stock:</label>
                         <input type="text" name="stock_preferencial" required
-                            class="w-full border border-gray-300 px-3 py-2 rounded text-lg font-semibold text-right"
-                            placeholder="0"
-                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                            inputmode="numeric">
+                            class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-black"
+                            placeholder="0" oninput="this.value = this.value.replace(/[^0-9]/g, '')" inputmode="numeric">
                     </div>
                 </div>
                 <!-- Botones -->
                 <div class="flex gap-8 mt-6">
                     <button type="submit"
-                        class="bg-blue-800 hover:bg-blue-900 text-white px-12 py-3 rounded-lg font-bold text-lg shadow">Publicar</button>
+                        class="bg-blue-700 hover:bg-blue-800 text-white px-12 py-3 rounded-lg text-lg shadow">Publicar</button>
                     <a href="{{ route('admin.eventos.index') }}"
-                        class="bg-yellow-400 hover:bg-yellow-500 text-black px-12 py-3 rounded-lg font-bold text-lg shadow text-center">
+                        class="bg-yellow-400 hover:bg-yellow-500 text-black px-12 py-3 rounded-lg text-lg shadow text-center">
                         Cancelar
                     </a>
                 </div>

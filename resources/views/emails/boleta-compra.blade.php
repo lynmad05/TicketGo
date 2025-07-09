@@ -120,19 +120,39 @@
 
         <div class="seccion">
             <div class="label">Entradas compradas:</div>
-            <ul>
-                @if(isset($entradas))
-                    @foreach ($entradas as $entrada)
-                        <li>{{ $entrada['cantidad'] }} {{ $entrada['tipo'] }} - S/.
-                            {{ number_format($entrada['subtotal'], 2) }}</li>
-                    @endforeach
-                @else
-                    @foreach ($compra->detalles as $detalle)
-                        <li>{{ $detalle->cantidad }} {{ strtoupper($detalle->tipo_ticket) }} - S/.
-                            {{ number_format($detalle->cantidad * $detalle->precio_unitario, 2) }}</li>
-                    @endforeach
-                @endif
-            </ul>
+            <div style="overflow-x:auto; margin: 10px 0;">
+                <table style="width:100%; border-collapse:collapse; font-size:14px;">
+                    <thead>
+                        <tr style="background:#fafafa; color:#555;">
+                            <th style="padding:6px 8px; border-bottom:1px solid #e0e0e0; text-align:left;">Detalle</th>
+                            <th style="padding:6px 8px; border-bottom:1px solid #e0e0e0; text-align:right;">Cantidad</th>
+                            <th style="padding:6px 8px; border-bottom:1px solid #e0e0e0; text-align:right;">Precio Unitario</th>
+                            <th style="padding:6px 8px; border-bottom:1px solid #e0e0e0; text-align:right;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if(isset($entradas))
+                            @foreach ($entradas as $entrada)
+                                <tr>
+                                    <td style="padding:6px 8px;">{{ $entrada['tipo'] }}</td>
+                                    <td style="padding:6px 8px; text-align:right;">{{ $entrada['cantidad'] }}</td>
+                                    <td style="padding:6px 8px; text-align:right;">S/. {{ number_format($entrada['subtotal'] / max($entrada['cantidad'],1), 2) }}</td>
+                                    <td style="padding:6px 8px; text-align:right;">S/. {{ number_format($entrada['subtotal'], 2) }}</td>
+                                </tr>
+                            @endforeach
+                        @else
+                            @foreach ($compra->detalles as $detalle)
+                                <tr>
+                                    <td style="padding:6px 8px;">{{ strtoupper($detalle->tipo_ticket) }}</td>
+                                    <td style="padding:6px 8px; text-align:right;">{{ $detalle->cantidad }}</td>
+                                    <td style="padding:6px 8px; text-align:right;">S/. {{ number_format($detalle->precio_unitario, 2) }}</td>
+                                    <td style="padding:6px 8px; text-align:right;">S/. {{ number_format($detalle->cantidad * $detalle->precio_unitario, 2) }}</td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    </tbody>
+                </table>
+            </div>
             @if(isset($subtotal_entradas) && isset($costo_entrega))
                 <div style="margin-top: 10px; padding: 5px 0;">
                     <div style="display: flex; justify-content: space-between;">

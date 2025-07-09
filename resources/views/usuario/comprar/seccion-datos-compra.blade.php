@@ -136,7 +136,22 @@
         {{-- Resumen de compra --}}
         <div class="mt-6">
             <h3 class="font-bold mb-2">RESUMEN</h3>
-            <ul id="resumen-lista-final" class="mb-2"></ul>
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-sm" id="resumen-lista-final">
+                    <thead>
+                        <tr class="text-left text-gray-600 border-b">
+                            <th class="py-1 px-2">Detalle</th>
+                            <th class="py-1 px-2 text-right">Cantidad</th>
+                            <th class="py-1 px-2 text-right">Precio Unitario</th>
+                            <th class="py-1 px-2 text-right">Total</th>
+                            <th class="py-1 px-2"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{-- Aquí se llenan las filas dinámicamente con JS --}}
+                    </tbody>
+                </table>
+            </div>
             <div class="font-bold text-right mt-2">TOTAL: S/. <span id="total-monto-final">0.00</span></div>
         </div>
 

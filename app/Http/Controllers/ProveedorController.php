@@ -12,7 +12,7 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        $proveedores = Proveedor::all(); // Asegúrate de tener el modelo importado
+        $proveedores = Proveedor::orderBy('nombre', 'asc')->get(); // Ordenar por nombre alfabéticamente
         return view('admin.GestionarProveedor', compact('proveedores'));
     }
 

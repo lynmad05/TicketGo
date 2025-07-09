@@ -13,7 +13,7 @@
     <div class="flex flex-col md:flex-row gap-6 items-start">
         <div class="w-full md:w-2/3">
             {{-- Sección de Selección de Tickets --}}
-            @include('usuario.comprar.seccion-tickets', ['evento' => $evento, 'promociones' => $promociones])
+            @include('usuario.comprar.seccion-tickets', ['evento' => $evento, 'promociones' => $promociones, 'yaCompro' => $yaCompro])
 
             {{-- Sección de Datos de Compra --}}
             @include('usuario.comprar.seccion-datos-compra')

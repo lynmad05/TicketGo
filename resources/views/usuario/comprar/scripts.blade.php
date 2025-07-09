@@ -151,17 +151,13 @@
 
     // Agregar tickets y promoción al resumen
     document.getElementById('agregarBtn').addEventListener('click', function() {
-        const resumenLista = document.getElementById('resumen-lista');
+        const resumenLista = document.querySelector('#resumen-lista tbody');
         resumenLista.innerHTML = '';
         let total = 0;
 
         // Procesar entradas
         document.querySelectorAll('.entrada-item').forEach(function(item) {
-            // Verificar si la entrada tiene stock disponible
-            if (item.classList.contains('sin-stock')) {
-                return; // Saltar entradas sin stock
-            }
-            
+            if (item.classList.contains('sin-stock')) return;
             const tipo = item.getAttribute('data-tipo');
             const precio = parseFloat(item.getAttribute('data-precio'));
             const cantidadInput = item.querySelector('.cantidad-input');
@@ -170,12 +166,18 @@
             if (cantidad > 0) {
                 const subtotal = cantidad * precio;
                 total += subtotal;
-                const li = document.createElement('li');
-                li.className = "flex justify-between items-center border-b py-1 text-sm gap-2";
-                li.innerHTML = `<span>${cantidad} TICKET ${tipo}</span><span>S/. ${subtotal.toFixed(2)}</span>
-                    <button type="button" class="text-red-500 hover:underline eliminar-resumen">Eliminar</button>`;
-                li.inputRef = cantidadInput;
-                resumenLista.appendChild(li);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${tipo}</td>
+                    <td class="text-right">${cantidad}</td>
+                    <td class="text-right">S/. ${precio.toFixed(2)}</td>
+                    <td class="text-right">S/. ${subtotal.toFixed(2)}</td>
+                    <td class="text-right">
+                        <button type="button" class="text-red-500 hover:underline eliminar-resumen">Eliminar</button>
+                    </td>
+                `;
+                tr.inputRef = cantidadInput;
+                resumenLista.appendChild(tr);
             }
         });
 
@@ -187,11 +189,17 @@
             const promoPrecio = parseFloat(promoItem.getAttribute('data-precio')) || 0;
             if (promoPrecio > 0) {
                 total += promoPrecio;
-                const li = document.createElement('li');
-                li.className = "flex justify-between items-center border-b py-1 text-sm gap-2";
-                li.innerHTML = `<span>PROMOCIÓN: ${promoNombre}</span><span>S/. ${promoPrecio.toFixed(2)}</span>
-                    <button type="button" class="text-red-500 hover:underline eliminar-resumen">Eliminar</button>`;
-                resumenLista.appendChild(li);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>PROMOCIÓN: ${promoNombre}</td>
+                    <td class="text-right">1</td>
+                    <td class="text-right">S/. ${promoPrecio.toFixed(2)}</td>
+                    <td class="text-right">S/. ${promoPrecio.toFixed(2)}</td>
+                    <td class="text-right">
+                        <button type="button" class="text-red-500 hover:underline eliminar-resumen">Eliminar</button>
+                    </td>
+                `;
+                resumenLista.appendChild(tr);
             }
         }
 
@@ -215,11 +223,8 @@
         // Mostrar mensaje de éxito flotante
         const mensajeExito = document.getElementById('mensaje-exito');
         if (mensajeExito) {
-            // Mostrar el mensaje completamente
             mensajeExito.classList.remove('opacity-0', 'invisible');
             mensajeExito.classList.add('opacity-100', 'visible');
-
-            // Ocultar mensaje de éxito después de 4 segundos
             setTimeout(() => {
                 ocultarMensajeExito();
             }, 4000);
@@ -515,7 +520,7 @@
         }
 
         // Verificar que haya elementos en el resumen
-        const elementosResumen = document.querySelectorAll('#resumen-lista li');
+        const elementosResumen = document.querySelectorAll('#resumen-lista tbody tr');
         if (elementosResumen.length === 0) {
             alert('Debes seleccionar entradas o promociones y presionar "Agregar" antes de continuar.');
             return;
@@ -523,15 +528,17 @@
 
         document.getElementById('seccion-tickets').classList.add('hidden');
         document.getElementById('seccion-datos-compra').classList.remove('hidden');
-        document.getElementById('resumen-lista-final').innerHTML = document.getElementById('resumen-lista')
-            .innerHTML;
+        // Copiar el tbody de la tabla de resumen
+        document.querySelector('#resumen-lista-final tbody').innerHTML = document.querySelector('#resumen-lista tbody').innerHTML;
+        // Copiar el total
+        document.getElementById('total-monto-final').textContent = document.getElementById('total-monto').textContent;
         actualizarResumenFinal();
 
         // Configurar botones eliminar en resumen final
         document.querySelectorAll('#resumen-lista-final .eliminar-resumen').forEach(function(btn) {
             btn.addEventListener('click', function() {
-                const li = this.closest('li');
-                li.remove();
+                const tr = this.closest('tr');
+                tr.remove();
                 actualizarResumenFinal();
             });
         });
@@ -562,8 +569,8 @@
     // Actualizar resumen final y total
     function actualizarResumenFinal() {
         let total = 0;
-        document.querySelectorAll('#resumen-lista-final li').forEach(function(item) {
-            const monto = item.querySelector('span:nth-child(2)');
+        document.querySelectorAll('#resumen-lista-final tbody tr').forEach(function(item) {
+            const monto = item.querySelector('td:nth-child(4)');
             if (monto) {
                 total += parseFloat(monto.textContent.replace('S/.', '').trim());
             }
@@ -575,19 +582,18 @@
         document.getElementById('total-monto-final').textContent = total.toFixed(2);
     }
 
-    // Configurar botones eliminar
     function configurarBotonesEliminar() {
         document.querySelectorAll('.eliminar-resumen').forEach(function(btn) {
             btn.addEventListener('click', function() {
-                const li = this.closest('li');
-                if (li.inputRef) {
-                    li.inputRef.value = 0;
+                const tr = this.closest('tr');
+                if (tr.inputRef) {
+                    tr.inputRef.value = 0;
                 }
-                li.remove();
+                tr.remove();
                 // Recalcular el total después de eliminar
                 let nuevoTotal = 0;
-                document.querySelectorAll('#resumen-lista li').forEach(function(item) {
-                    const monto = item.querySelector('span:nth-child(2)');
+                document.querySelectorAll('#resumen-lista tbody tr').forEach(function(item) {
+                    const monto = item.querySelector('td:nth-child(4)');
                     if (monto) {
                         nuevoTotal += parseFloat(monto.textContent.replace('S/.', '').trim());
                     }
@@ -595,7 +601,7 @@
                 document.getElementById('total-monto').textContent = nuevoTotal.toFixed(2);
 
                 // Verificar si quedan elementos en el resumen
-                const elementosResumen = document.querySelectorAll('#resumen-lista li');
+                const elementosResumen = document.querySelectorAll('#resumen-lista tbody tr');
                 if (elementosResumen.length === 0) {
                     // Si no quedan elementos, deshabilitar botón continuar
                     resumenAgregado = false;
@@ -991,11 +997,11 @@
 
         // Procesar entradas para el email
         let entradas = [];
-        document.querySelectorAll('#resumen-lista-final li').forEach(function(item) {
-            const texto = item.querySelector('span:first-child').textContent;
+        document.querySelectorAll('#resumen-lista-final tbody tr').forEach(function(item) {
+            const texto = item.querySelector('td:first-child').textContent;
             const cantidad = parseInt(texto);
             const tipo = texto.replace(/^\d+\s/, '');
-            const subtotal = parseFloat(item.querySelector('span:nth-child(2)').textContent.replace('S/.', '')
+            const subtotal = parseFloat(item.querySelector('td:nth-child(4)').textContent.replace('S/.', '')
                 .trim());
             entradas.push({
                 cantidad,
@@ -1158,8 +1164,8 @@
     function mostrarDesgloseCostos() {
         // Calcular subtotal de entradas
         let subtotalEntradas = 0;
-        document.querySelectorAll('#resumen-lista-confirmado li').forEach(function(item) {
-            const subtotal = parseFloat(item.querySelector('span:nth-child(2)').textContent.replace('S/.', '')
+        document.querySelectorAll('#resumen-lista-confirmado tbody tr').forEach(function(item) {
+            const subtotal = parseFloat(item.querySelector('td:nth-child(4)').textContent.replace('S/.', '')
                 .trim());
             subtotalEntradas += subtotal;
         });
@@ -1217,11 +1223,11 @@
 
         // Procesar entradas desde la confirmación
         let entradas = [];
-        document.querySelectorAll('#resumen-lista-confirmado li').forEach(function(item) {
-            const texto = item.querySelector('span:first-child').textContent;
+        document.querySelectorAll('#resumen-lista-confirmado tbody tr').forEach(function(item) {
+            const texto = item.querySelector('td:first-child').textContent;
             const cantidad = parseInt(texto);
             const tipo = texto.replace(/^\d+\s/, '');
-            const subtotal = parseFloat(item.querySelector('span:nth-child(2)').textContent.replace(
+            const subtotal = parseFloat(item.querySelector('td:nth-child(4)').textContent.replace(
                 'S/.', '').trim());
             entradas.push({
                 cantidad,

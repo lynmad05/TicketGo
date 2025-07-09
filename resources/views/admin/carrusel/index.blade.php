@@ -2,10 +2,10 @@
 
 @section('contenido')
     <div class="container mx-auto p-6">
-        <h2 class="text-3xl font-bold mb-6 text-gray-800">Gestionar Carrusel</h2>
+        <h2 class="text-2xl font-bold mb-6 text-black">Gestionar Carrusel</h2>
 
         <a href="{{ route('admin.carrusel.create') }}"
-            class="inline-block mb-6 bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600 transition font-semibold shadow">
+            class="inline-block mb-6 bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-800 transition font-semibold shadow">
             + Añadir Imagen
         </a>
 
@@ -19,9 +19,9 @@
             <div class="overflow-x-auto shadow rounded-lg">
                 <table class="w-full border-collapse bg-white">
                     <thead>
-                        <tr class="bg-blue-100 text-blue-900 text-left">
-                            <th class="px-6 py-3 border-b border-blue-300">Imagen</th>
-                            <th class="px-6 py-3 border-b border-blue-300 text-center">Acciones</th>
+                        <tr class="bg-blue-700 text-white text-left">
+                            <th class="px-6 py-3 border-b border-blue-700">Imagen</th>
+                            <th class="px-6 py-3 border-b border-blue-700 text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,11 +34,11 @@
                                 <td class="px-6 py-4 border-b border-gray-400 text-center">
                                     <div class="flex justify-center gap-3">
                                         <a href="{{ route('admin.carrusel.edit', $imagen->id) }}"
-                                            class="btn bg-blue-600 hover:bg-blue-500 text-white px-4 py-1 rounded shadow">Editar
+                                            class="btn bg-blue-700 hover:bg-blue-800 text-white px-4 py-1 rounded shadow">Editar
                                         </a>
 
                                         <label for="modal-{{ $imagen->id }}"
-                                            class="btn bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-1 rounded shadow cursor-pointer">Quitar</label>
+                                            class="btn bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-1 rounded shadow cursor-pointer">Quitar</label>
                                         <input type="checkbox" id="modal-{{ $imagen->id }}" class="hidden peer" />
 
                                         <!-- Modal centrado -->
@@ -49,13 +49,13 @@
                                                     imagen?</h2>
                                                 <div class="flex justify-center gap-4">
                                                     <label for="modal-{{ $imagen->id }}"
-                                                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded cursor-pointer">Cancelar</label>
+                                                        class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded cursor-pointer">Cancelar</label>
                                                     <form action="{{ route('admin.carrusel.destroy', $imagen->id) }}"
                                                         method="POST" class="inline">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit"
-                                                            class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded">Eliminar</button>
+                                                            class="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded">Eliminar</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -83,7 +83,7 @@
                             @csrf
                             <input type="hidden" name="ruta" value="{{ $evento->imagen }}">
                             <button type="submit"
-                                class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-1 rounded shadow mb-2">Añadir al
+                                class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-1 rounded shadow mb-2">Añadir al
                                 carrusel</button>
                         </form>
                     </div>

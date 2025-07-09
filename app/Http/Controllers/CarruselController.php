@@ -13,14 +13,18 @@ class CarruselController extends Controller
     public function index()
     {
         $imagenes = \App\Models\Carrusel::all();
-        $eventos = \App\Models\Evento::whereNotNull('imagen')->get();
+        $eventos = \App\Models\Evento::whereNotNull('imagen')->orderBy('nombre')->get();
         return view('admin.carrusel.index', compact('imagenes', 'eventos'));
     }
+
+    //------------------------------------------------------------------------------------------
 
     public function create()
     {
         return view('admin.carrusel.create');
     }
+
+    //------------------------------------------------------------------------------------------
 
     public function store(Request $request)
     {
@@ -38,11 +42,15 @@ class CarruselController extends Controller
         return redirect()->route('admin.carrusel.index')->with('success', 'Imagen añadida correctamente.');
     }
 
+    //------------------------------------------------------------------------------------------
+
     public function edit(string $id)
     {
         $imagen = Carrusel::findOrFail($id);
         return view('admin.carrusel.edit', compact('imagen'));
     }
+
+    //------------------------------------------------------------------------------------------
 
     public function update(Request $request, string $id)
     {
@@ -64,6 +72,7 @@ class CarruselController extends Controller
         return redirect()->route('admin.carrusel.index')->with('success', 'Imagen actualizada correctamente.');
     }
 
+    //------------------------------------------------------------------------------------------
     public function destroy($id)
     {
         $carrusel = Carrusel::findOrFail($id);
@@ -81,6 +90,8 @@ class CarruselController extends Controller
 
         return redirect()->route('admin.carrusel.index')->with('success', 'Imagen quitada del carrusel correctamente.');
     }
+
+    //------------------------------------------------------------------------------------------
 
     public function welcome()
     {

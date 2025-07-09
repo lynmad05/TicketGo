@@ -23,12 +23,15 @@
         <!-- Buscador centrado -->
         <div class="flex-1 flex justify-center">
             <form aria-label="Buscar eventos"
-                class="flex items-center border border-gray-300 rounded-full px-3 py-1 max-w-lg w-full" role="search"
+                class="flex items-center border border-gray-300 rounded-full px-3 py-1 max-w-lg w-full relative" role="search"
                 onsubmit="event.preventDefault();">
                 <input class="flex-grow text-xs placeholder-gray-400 focus:outline-none" id="searchInput"
-                    placeholder="Hacer búsqueda aquí" type="search" />
+                    placeholder="Hacer búsqueda aquí" type="search" autocomplete="off" />
                 <button class="text-gray-500 ml-2" type="submit">
                     <i class="fas fa-search"></i>
+                </button>
+                <button type="button" id="clearSearchBtn" class="absolute right-10 text-gray-400 hover:text-gray-700 focus:outline-none hidden">
+                    <i class="fas fa-times"></i>
                 </button>
             </form>
         </div>
@@ -80,14 +83,27 @@
 
     <script>
         const searchInput = document.getElementById('searchInput');
+        const clearBtn = document.getElementById('clearSearchBtn');
         searchInput.addEventListener('input', function() {
             const query = this.value.toLowerCase();
             const eventos = document.querySelectorAll('article');
-
+            let hayTexto = query.length > 0;
+            clearBtn.classList.toggle('hidden', !hayTexto);
             eventos.forEach(evento => {
-                const text = evento.textContent.toLowerCase();
-                evento.style.display = text.includes(query) ? 'block' : 'none';
+                // Buscar solo por el nombre del evento
+                const nombreElem = evento.querySelector('p.font-semibold');
+                const nombre = nombreElem ? nombreElem.textContent.toLowerCase() : '';
+                evento.style.display = nombre.includes(query) ? 'block' : 'none';
             });
+        });
+        clearBtn.addEventListener('click', function() {
+            searchInput.value = '';
+            clearBtn.classList.add('hidden');
+            const eventos = document.querySelectorAll('article');
+            eventos.forEach(evento => {
+                evento.style.display = 'block';
+            });
+            searchInput.focus();
         });
     </script>
 

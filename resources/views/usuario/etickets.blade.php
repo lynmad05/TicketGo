@@ -5,53 +5,57 @@
     .btn-enviar {
         transition: all 0.3s ease;
     }
-    
+
     .btn-enviar:disabled {
         transform: scale(0.98);
     }
-    
+
     .spinner {
         animation: spin 1s linear infinite;
     }
-    
+
     @keyframes spin {
         from {
             transform: rotate(0deg);
         }
+
         to {
             transform: rotate(360deg);
         }
     }
-    
+
     /* Efecto de pulso para el botón durante el envío */
     .btn-enviar.enviando {
         animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     }
-    
+
     @keyframes pulse {
-        0%, 100% {
+
+        0%,
+        100% {
             opacity: 1;
         }
+
         50% {
             opacity: 0.8;
         }
     }
-    
+
     /* Estilos para los badges de tickets */
     .ticket-badge {
         transition: all 0.2s ease;
     }
-    
+
     .ticket-badge:hover {
         transform: scale(1.05);
     }
-    
+
     /* Estilos para la tabla */
     .etickets-table {
         border-collapse: separate;
         border-spacing: 0;
     }
-    
+
     .etickets-table th {
         position: sticky;
         top: 0;
@@ -77,6 +81,9 @@
                         <th scope="col" class="px-4 py-3">Tickets</th>
                         <th scope="col" class="px-4 py-3 text-center">Total</th>
                         <th scope="col" class="px-4 py-3 text-center">Enviar</th>
+                    </tr>
+                    <tr>
+                        <td colspan="7" style="border-bottom: 2px solid rgb(203, 203, 203); padding: 0;"></td>
                     </tr>
                 </thead>
                 <tbody>
@@ -112,7 +119,8 @@
                                         @if (count($tickets) === 1)
                                             {{-- Si solo hay un tipo de ticket, mostrar de forma simple --}}
                                             @foreach ($tickets as $tipo => $cantidad)
-                                                <span class="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium ticket-badge">
+                                                <span
+                                                    class="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium ticket-badge">
                                                     {{ $cantidad }}x {{ $tipo }}
                                                 </span>
                                             @endforeach
@@ -121,11 +129,13 @@
                                             @foreach ($tickets as $tipo => $cantidad)
                                                 <div class="flex items-center justify-between text-xs">
                                                     <span class="font-medium">{{ $tipo }}:</span>
-                                                    <span class="bg-gray-100 text-gray-700 px-2 py-1 rounded ticket-badge">{{ $cantidad }}</span>
+                                                    <span
+                                                        class="bg-gray-100 text-gray-700 px-2 py-1 rounded ticket-badge">{{ $cantidad }}</span>
                                                 </div>
                                             @endforeach
                                             <div class="border-t border-gray-200 pt-1 mt-1">
-                                                <span class="text-xs font-bold text-gray-600">Total: {{ $totalTickets }} tickets</span>
+                                                <span class="text-xs font-bold text-gray-600">Total: {{ $totalTickets }}
+                                                    tickets</span>
                                             </div>
                                         @endif
                                     </div>
@@ -139,13 +149,20 @@
                                         id="btn-enviar-{{ $compra->id }}">
                                         <span id="btn-text-{{ $compra->id }}">Enviar al correo</span>
                                         <div id="spinner-{{ $compra->id }}" class="hidden ml-2">
-                                            <svg class="spinner h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                            <svg class="spinner h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg"
+                                                fill="none" viewBox="0 0 24 24">
+                                                <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                    stroke="currentColor" stroke-width="4"></circle>
+                                                <path class="opacity-75" fill="currentColor"
+                                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                                </path>
                                             </svg>
                                         </div>
                                     </button>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td colspan="7" style="border-bottom: 2px solid rgb(203, 203, 203); padding: 0;"></td>
                             </tr>
                         @endforeach
                     @else
@@ -201,7 +218,8 @@
                     if (data.success) {
                         // Mostrar mensaje de éxito
                         btnText.textContent = 'Enviado ✓';
-                        btnEnviar.classList.remove('bg-[#334e86]', 'hover:bg-[#283b66]', 'opacity-75', 'cursor-not-allowed', 'enviando');
+                        btnEnviar.classList.remove('bg-[#334e86]', 'hover:bg-[#283b66]', 'opacity-75',
+                            'cursor-not-allowed', 'enviando');
                         btnEnviar.classList.add('bg-green-600', 'cursor-default');
 
                         // Mostrar notificación

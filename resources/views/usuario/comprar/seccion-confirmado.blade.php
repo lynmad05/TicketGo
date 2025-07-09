@@ -46,7 +46,21 @@
                     {{-- Detalle de entradas y total --}}
                     <div class="w-full mb-4 border-b pb-2">
                         <h3 class="font-semibold mb-1">Entradas compradas</h3>
-                        <ul class="mb-2" id="resumen-lista-confirmado"></ul>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full text-sm" id="resumen-lista-confirmado">
+                                <thead>
+                                    <tr class="text-left text-gray-600 border-b">
+                                        <th class="py-1 px-2">Detalle</th>
+                                        <th class="py-1 px-2 text-right">Cantidad</th>
+                                        <th class="py-1 px-2 text-right">Precio Unitario</th>
+                                        <th class="py-1 px-2 text-right">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{-- Aquí se llenan las filas dinámicamente con JS --}}
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="text-sm text-gray-600 mt-2">
                             <div class="flex justify-between">
                                 <span>Subtotal entradas:</span>

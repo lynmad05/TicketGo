@@ -163,7 +163,7 @@
 
             <!-- Botón -->
             <button type="submit"
-                class="w-full text-center bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded shadow">Registrarme</button>
+                class="w-full text-center bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded shadow">Registrarme</button>
         </form>
 
         <script>
